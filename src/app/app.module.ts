@@ -8,6 +8,8 @@ import { PhotosComponent } from './photos/photos.component';
 import { EventsComponent } from './events/events.component';
 import { TravelComponent } from './travel/travel.component';
 import { RegistryComponent } from './registry/registry.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatToolbarModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { RegistryComponent } from './registry/registry.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

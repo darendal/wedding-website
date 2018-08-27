@@ -1,16 +1,24 @@
 <div style="text-align:center">
-  <h1>
-    Brendan Ware <img src="https://via.placeholder.com/75x75"> Emily Buchroeder
-  </h1>
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <span class="title-center">
+        <h1 class="title-names" style="order: 1">Brendan Ware</h1>
+        <div style="order: 2;"> <img class="title-image" src="https://via.placeholder.com/75x75"> </div>
+        <h1 class="title-names" style="order: 3;">Emily Buchroeder</h1>
+      </span>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+      <div class="nav-links">
+        <a class="nav" routerLink="home">Home</a>
+        <a class="nav" routerLink="rsvp">RSVP</a>
+        <a class="nav" routerLink="photos">Photos</a>
+        <a class="nav" routerLink="events">Events</a>
+        <a class="nav" routerLink="travel">Travel</a>
+        <a class="nav" routerLink="registry">Registry</a>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
   <div class="linebreak"><img src="https://via.placeholder.com/75x50"></div>
-  <nav>
-    <a routerLink="home">Home</a>
-    <a routerLink="rsvp">RSVP</a>
-    <a routerLink="photos">Photos</a>
-    <a routerLink="events">Events</a>
-    <a routerLink="travel">Travel</a>
-    <a routerLink="registry">Registry</a>
-  </nav>
   <router-outlet></router-outlet>
 </div>
 
