@@ -7,19 +7,25 @@
         <h1 class="title-names" style="order: 3;">Emily Buchroeder</h1>
       </span>
     </mat-toolbar-row>
-    <mat-toolbar-row>
-      <div class="nav-links">
-        <a class="nav" routerLink="home">Home</a>
-        <a class="nav" routerLink="rsvp">RSVP</a>
-        <a class="nav" routerLink="photos">Photos</a>
-        <a class="nav" routerLink="events">Events</a>
-        <a class="nav" routerLink="travel">Travel</a>
-        <a class="nav" routerLink="registry">Registry</a>
-      </div>
-    </mat-toolbar-row>
   </mat-toolbar>
+  <nav mat-tab-nav-bar class="nav-links">
+    <a mat-tab-link
+       *ngFor="let link of navLinks"
+       [routerLink]="link.path"
+       routerLinkActive #rla="routerLinkActive"
+       [routerLinkActiveOptions]="{exact:true}"
+       [active]="rla.isActive">
+      {{link.label}}
+    </a>
+  </nav>
   <div class="linebreak"><img src="https://via.placeholder.com/75x50"></div>
   <router-outlet></router-outlet>
 </div>
+<mat-divider></mat-divider>
+
+<footer>
+  <p></p>
+  <span class="footer-content">Copyright 2019 Brendan Ware</span>
+</footer>
 
 

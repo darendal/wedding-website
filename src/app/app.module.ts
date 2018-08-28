@@ -9,7 +9,7 @@ import { EventsComponent } from './events/events.component';
 import { TravelComponent } from './travel/travel.component';
 import { RegistryComponent } from './registry/registry.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatToolbarModule} from '@angular/material';
+import {MatDividerModule, MatTabsModule, MatToolbarModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,9 @@ import {MatToolbarModule} from '@angular/material';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTabsModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
