@@ -1,0 +1,41 @@
+.center-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+  border: 8px solid rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 4px;
+}
+
+.img-box {
+  margin: 5px;
+}
+
+.please-join{
+  font-family: 'Tangerine', serif;
+  font-size: 36pt;
+  margin-bottom: 0;
+}
+
+.story-container {
+  width: 70%;
+  display: block;
+  justify-content: center;
+  text-align: center;
+
+}
+
+.our-story {
+  font-family: Lato, sans-serif;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+}
+
+time {
+  text-transform: uppercase;
+  font-size: 32pt;
+  letter-spacing: 2px;
+}
