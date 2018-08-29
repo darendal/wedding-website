@@ -11,6 +11,7 @@ import { RegistryComponent } from './registry/registry.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDividerModule, MatTabsModule, MatToolbarModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
+import {NgMasonryGridModule} from 'ng-masonry-grid';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {HttpClientModule} from '@angular/common/http';
     MatToolbarModule,
     MatTabsModule,
     MatDividerModule,
-    HttpClientModule
+    HttpClientModule,
+    NgMasonryGridModule
   ],
   providers: [],
   bootstrap: [AppComponent]

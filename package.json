@@ -13,6 +13,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^6.1.4",
+    "@angular/cdk": "^6.2.0",
     "@angular/common": "^6.1.4",
     "@angular/compiler": "^6.1.4",
     "@angular/core": "^6.1.4",
@@ -23,10 +24,12 @@
     "@angular/platform-browser-dynamic": "^6.1.4",
     "@angular/router": "^6.1.4",
     "core-js": "^2.4.1",
+    "imagesloaded": "^4.1.4",
+    "masonry-layout": "^4.2.2",
+    "ng-masonry-grid": "^1.2.5",
     "rxjs": "^6.2.2",
-    "zone.js": "^0.8.14",
-    "@angular/cdk": "^6.2.0",
-    "rxjs-compat": "^6.0.0-rc.0"
+    "rxjs-compat": "^6.0.0-rc.0",
+    "zone.js": "^0.8.14"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.7.0",
