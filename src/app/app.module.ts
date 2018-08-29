@@ -10,6 +10,7 @@ import { TravelComponent } from './travel/travel.component';
 import { RegistryComponent } from './registry/registry.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDividerModule, MatTabsModule, MatToolbarModule} from '@angular/material';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {MatDividerModule, MatTabsModule, MatToolbarModule} from '@angular/materi
     BrowserAnimationsModule,
     MatToolbarModule,
     MatTabsModule,
-    MatDividerModule
+    MatDividerModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
