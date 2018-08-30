@@ -1,0 +1,25 @@
+.events {
+  /*background: aqua; */
+}
+
+.map {
+ /* background: lightcoral; */
+}
+
+.container {
+  width: 70%;
+}
+
+h3 {
+  font-size: 20pt;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.directions {
+  font-size: 16pt;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-decoration: none;
+  color: black;
+}
