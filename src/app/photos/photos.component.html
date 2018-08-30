@@ -1,14 +1,12 @@
-<p>
-  photos works!
-</p>
 <div class="grid-container">
   <ng-masonry-grid
-    [masonryOptions]="{ transitionDuration: '0.8s', gutter: 1, columnWidth: 80 }"
+    [masonryOptions]="{ transitionDuration: '0.5s', gutter: 1, columnWidth: 80, fitWidth: true}"
     [useAnimation]="false"
-    [useImagesLoaded]="true">
+    [useImagesLoaded]="true"
+  >
 
     <ng-masonry-grid-item id="{{'masonry-grid-item-' + i}}" *ngFor="let item of photos; let i = index">
-      <img src="{{item.secure_url}}" alt="{{item.public_id}}">
+      <img src="{{item.secure_url}}" alt="{{item.public_id}}" >
     </ng-masonry-grid-item>
 
   </ng-masonry-grid>

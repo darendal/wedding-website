@@ -1,8 +1,15 @@
 ng-masonry-grid{
-  width: 65%;
+  width: 70%;
 }
 
 ng-masonry-grid-item {
   border: 8px solid rgb(255, 255, 255);
   box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 4px;
+  margin-bottom: 5px !important;
+}
+
+.grid-container {
+ display: flex;
+ justify-content: center;
+ align-items: center;
 }

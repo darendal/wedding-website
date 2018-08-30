@@ -21,9 +21,7 @@ export class PhotosComponent implements OnInit {
   getPhotos(): void {
      this.photoService.getPhotos()
        .subscribe(response => {
-         log(response);
          this.photos = response.resources;
-         log(this.photos);
        });
   }
 
