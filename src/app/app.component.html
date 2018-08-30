@@ -1,14 +1,23 @@
 <div style="text-align:center">
   <mat-toolbar>
     <mat-toolbar-row>
-      <span class="title-center">
+      <div fxShow fxHide.gt-sm="true">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <a mat-menu-item *ngFor="let link of navLinks" href="{{link.path}}">{{link.label}}</a>
+        </mat-menu>
+      </div>
+      <span class="title-center" fxLayout.sm="columns">
         <h1 class="title-names" style="order: 1">Brendan Ware</h1>
-        <div style="order: 2;"> <img class="title-image" src="https://via.placeholder.com/75x75"> </div>
-        <h1 class="title-names" style="order: 3;">Emily Buchroeder</h1>
+        <div style="order: 2;" fxShow fxHide.lt-sm="true"> <img class="title-image" src="https://via.placeholder.com/75x75"> </div>
+        <h2 class="title-names" style="order: 3; padding-left: 5px; padding-right: 5px" fxShow fxHide.gt-xs="true">&</h2>
+        <h1 class="title-names" style="order: 4;">Emily Buchroeder</h1>
       </span>
     </mat-toolbar-row>
   </mat-toolbar>
-  <nav mat-tab-nav-bar class="nav-links">
+  <nav mat-tab-nav-bar class="nav-links" fxShow fxHide.lt-md="true">
     <a mat-tab-link
        *ngFor="let link of navLinks"
        [routerLink]="link.path"
