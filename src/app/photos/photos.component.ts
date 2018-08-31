@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PhotosService} from '../photos.service';
 import {Photo} from '../photo';
-import {log} from 'util';
 
 @Component({
   selector: 'app-photos',
@@ -11,16 +10,19 @@ import {log} from 'util';
 export class PhotosComponent implements OnInit {
 
   photos: Photo[];
+  isLoaded: boolean;
 
   constructor(private photoService: PhotosService) { }
 
   ngOnInit() {
+    this.isLoaded = false;
     this.getPhotos();
   }
 
   getPhotos(): void {
      this.photoService.getPhotos()
        .subscribe(response => {
+         this.isLoaded = true;
          this.photos = response.resources;
        });
   }

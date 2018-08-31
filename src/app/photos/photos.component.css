@@ -9,7 +9,9 @@ ng-masonry-grid-item {
 }
 
 .grid-container {
- display: flex;
- justify-content: center;
- align-items: center;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
+
+

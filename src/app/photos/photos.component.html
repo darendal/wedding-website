@@ -1,4 +1,6 @@
+
 <div class="grid-container">
+  <mat-spinner style="margin: 0 auto;" *ngIf="!isLoaded"></mat-spinner>
   <ng-masonry-grid
     [masonryOptions]="{ transitionDuration: '0.5s', gutter: 1, columnWidth: 80, fitWidth: true}"
     [useAnimation]="false"
