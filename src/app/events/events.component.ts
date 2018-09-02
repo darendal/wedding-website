@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {OSM_TILE_LAYER_URL} from '@yaga/leaflet-ng2';
+import {EventsService} from '../events.service';
+import {Event} from '../event';
 
 @Component({
   selector: 'app-events',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventsComponent implements OnInit {
 
-  constructor() { }
+  events: Event[];
+  public tileLayerUrl: string = OSM_TILE_LAYER_URL;
+
+  constructor(private eventService: EventsService) { }
 
   ngOnInit() {
+    this.getEvents();
+  }
+
+  getEvents(): void {
+    this.events = this.eventService.getEvents();
   }
 
 }

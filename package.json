@@ -25,6 +25,7 @@
     "@angular/platform-browser": "^6.1.4",
     "@angular/platform-browser-dynamic": "^6.1.4",
     "@angular/router": "^6.1.4",
+    "@yaga/leaflet-ng2": "^1.0.0-rc12",
     "core-js": "^2.4.1",
     "imagesloaded": "^4.1.4",
     "masonry-layout": "^4.2.2",

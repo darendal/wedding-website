@@ -2,32 +2,58 @@
   <div class="container" fxFill fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center" >
     <div fxFlex="60%" class="events">
       <div fxLayout="column" fxLayoutAlign="center">
-        <div fxFlex="50">
-          <h3>Wedding Ceremony</h3>
+        <div *ngFor="let event of this.events" fxFlex="50">
+          <h3 class="event-name">{{event.eventName}}</h3>
           <p>
-            1:00 pm, September 14th, 2019 <br/>
-            Lantern Court - Holden Arboretum <br/>
-            9203 Kirtland Chardon Rd, Kirtland, OH 44094 <br/>
+            {{event.dateTime}}<br/>
+            {{event.locationName}} <br/>
+            {{event.address}}<br/>
           </p>
 
-          <a class="directions" href="https://www.google.com/maps?saddr=My+Location&daddr=Lantern+Court+Holden+Arboretum+9203+Kirtland+Chardon+Rd+Kirtland+OH+44094"> Get Directions </a>
-        </div>
-        <div fxFlex="50">
-          <h3>Brunch</h3>
-          <p>
-            9:00 AM, September 15th, 2019 <br/>
-            Best Western Plus Lawnfield Inn & Suites <br/>
-            8434 Mentor Ave, Mentor, OH 44060 <br/>
-          </p>
-
-          <a class="directions" href="https://www.google.com/maps?saddr=My+Location&daddr=Lantern+Court+Holden+Arboretum+9203+Kirtland+Chardon+Rd+Kirtland+OH+44094"> Get Directions </a>
+          <a class="directions" href="{{event.directionLink}}"> Get Directions </a>
         </div>
       </div>
     </div>
     <div fxFlex="40%" class="map">
       <div>
-        Map
-        <img src="https://via.placeholder.com/100x100">
+        <yaga-map
+          [lat]="41.62965"
+          [lng]="-81.36372"
+          [zoom]="11"
+          [minZoom]="10"
+        >
+          <yaga-zoom-control></yaga-zoom-control>
+          <div *ngFor="let event of this.events">
+            <yaga-marker [lat]="event.lat" [lng]="event.long">
+              <yaga-icon
+                [iconUrl]="'./assets/leaflet/images/marker-icon.png'"
+                [iconSize]="[25, 41]"
+                [iconAnchor]="[13, 10]"
+                [shadowUrl]="'./assets/leaflet/images/marker-shadow.png'"
+              ></yaga-icon>
+              <yaga-popup
+                [autoPan]="true"
+                [autoPanPadding]="true"
+                [autoPanPaddingTopLeft]="true"
+                [autoPanPaddingBottomRight]="true"
+                [autoClose]="true"
+                [keepInView]="true"
+                [className]="'map-popup'"
+              >
+                <h3 class="map-event-name">{{event.eventName}}</h3>
+                <p>
+                  {{event.dateTime}}<br/>
+                  {{event.locationName}} <br/>
+                  {{event.address}}<br/>
+                </p>
+              </yaga-popup>
+            </yaga-marker>
+            <yaga-tile-layer
+              [(url)]="tileLayerUrl"
+            ></yaga-tile-layer>
+          </div>
+          <yaga-attribution-control></yaga-attribution-control>
+        </yaga-map>
       </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-import {Photo} from './app/photo';
+import {Photo} from './photo';
 
 export class PhotosRespose {
   resources: Photo[];

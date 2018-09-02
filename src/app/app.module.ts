@@ -21,6 +21,8 @@ import {
 import {HttpClientModule} from '@angular/common/http';
 import {NgMasonryGridModule} from 'ng-masonry-grid';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {YagaModule} from '@yaga/leaflet-ng2';
+import {EventsService} from './events.service';
 
 @NgModule({
   declarations: [
@@ -45,9 +47,10 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MatMenuModule,
     MatIconModule,
     MatGridListModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    YagaModule
   ],
-  providers: [],
+  providers: [EventsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
