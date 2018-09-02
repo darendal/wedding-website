@@ -1,0 +1,13 @@
+.title {
+  font-size: 20pt;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+a {
+  font-size: 15pt;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-decoration: none;
+  color: black;
+}
