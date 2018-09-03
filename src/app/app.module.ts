@@ -16,13 +16,14 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatGridListModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, MatButtonModule
 } from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {NgMasonryGridModule} from 'ng-masonry-grid';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {YagaModule} from '@yaga/leaflet-ng2';
 import {EventsService} from './events.service';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,13 @@ import {EventsService} from './events.service';
     MatIconModule,
     MatGridListModule,
     MatProgressSpinnerModule,
-    YagaModule
+    YagaModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule
   ],
   providers: [EventsService],
   bootstrap: [AppComponent]
