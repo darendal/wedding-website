@@ -42,7 +42,14 @@ export class RsvpComponent implements OnInit {
   onSubmit(): void {
     const name: string = this.reservationLookupForm.controls['reservation'].value;
     this.reservationService.getReservationByName(name)
-      .subscribe(res => this.reservation = res);
+      .subscribe(res => this.reservation = res );
+  }
+
+  formSubmitted(agreed: boolean): void {
+    if (agreed) {
+      this.reservationLookupForm.reset();
+      this.reservation = null;
+    }
   }
 
 }

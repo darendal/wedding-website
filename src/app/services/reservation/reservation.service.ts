@@ -19,4 +19,8 @@ export class ReservationService {
   getRSVPNames(): Observable<string[]> {
     return of(this.options);
   }
+
+  saveReservation(resevation: Reservation): Observable<boolean> {
+    return of(true);
+  }
 }

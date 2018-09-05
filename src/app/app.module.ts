@@ -18,7 +18,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatMenuModule,
-  MatProgressSpinnerModule, MatRadioModule, MatSelectModule,
+  MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatSnackBarModule,
   MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
@@ -67,7 +67,8 @@ import {EnumToArrayPipe} from './enum-to-array.pipe';
     MatCheckboxModule,
     MatRadioModule,
     MatSelectModule,
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

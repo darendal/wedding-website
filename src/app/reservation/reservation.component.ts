@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Reservation} from '../models/reservation';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {log} from 'util';
 import {MealChoiceEnum} from '../models/mealChoice.enum';
 import {Guest} from '../models/guest';
+import {ReservationService} from '../services/reservation/reservation.service';
+import {MessageService} from '../services/message/message.service';
 
 @Component({
   selector: 'app-reservation',
@@ -15,15 +16,17 @@ export class ReservationComponent implements OnInit {
   compareFn: ((f1: any, f2: any) => boolean) | null = this.compareByValue;
 
   reservationForm: FormGroup;
-
+  @Output() formSubmitted: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() reservation: Reservation;
+
 
   MealChoiceEnum = MealChoiceEnum;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+              private resService: ReservationService,
+              private messageService: MessageService) { }
 
   ngOnInit() {
-
     this.reservationForm = this.fb.group({
       willAttend: this.fb.control([Validators.required]),
       guests: this.fb.array([])
@@ -63,6 +66,21 @@ export class ReservationComponent implements OnInit {
       for (const guest of formValues['guests']) {
         this.reservation.guests.push(new Guest(guest['guestName'], guest['mealChoice']));
       }
+
+      this.resService.saveReservation(this.reservation).subscribe((response: boolean) => {
+        if (response) {
+          if (this.reservation.willAttend) {
+            this.messageService.showMessage('RSVP received, we look forward to seeing you!');
+          } else {
+            this.messageService.showMessage('RSVP received, we\'re sorry you can\'t make it!');
+          }
+          this.reservation = null;
+          this.reservationForm.reset();
+          this.formSubmitted.emit(response);
+        }  else {
+          this.messageService.showMessage('Something went wrong :(');
+        }
+      });
     }
   }
 

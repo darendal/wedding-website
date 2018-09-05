@@ -13,6 +13,6 @@
   </form>
 </div>
 <ng-template #reservationTemplate>
-  <app-reservation [(reservation)]="reservation"></app-reservation>
+  <app-reservation (formSubmitted)="formSubmitted($event)" [(reservation)]="reservation"></app-reservation>
 </ng-template>
 
