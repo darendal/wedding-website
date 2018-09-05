@@ -3,6 +3,7 @@ import {Reservation} from '../models/reservation';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {log} from 'util';
 import {MealChoiceEnum} from '../models/mealChoice.enum';
+import {Guest} from '../models/guest';
 
 @Component({
   selector: 'app-reservation',
@@ -51,7 +52,18 @@ export class ReservationComponent implements OnInit {
   }
 
   onSubmit(): void {
-    log(this.reservationForm.value);
+    if (this.reservationForm.valid) {
+      const formValues = this.reservationForm.value;
+
+      this.reservation.willAttend = formValues['willAttend'];
+
+      // Clear guests
+      this.reservation.guests = [];
+
+      for (const guest of formValues['guests']) {
+        this.reservation.guests.push(new Guest(guest['guestName'], guest['mealChoice']));
+      }
+    }
   }
 
   addGuest(guestName?: string, mealChoice?: MealChoiceEnum): void {

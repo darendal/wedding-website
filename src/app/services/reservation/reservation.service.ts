@@ -8,9 +8,15 @@ import {of} from 'rxjs/internal/observable/of';
 })
 export class ReservationService {
 
+  options: string[] = ['One', 'Two', 'Three'];
+
   constructor() { }
 
   getReservationByName(name: string): Observable<Reservation> {
     return of(new Reservation(0, name));
+  }
+
+  getRSVPNames(): Observable<string[]> {
+    return of(this.options);
   }
 }

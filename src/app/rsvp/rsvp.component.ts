@@ -16,7 +16,7 @@ export class RsvpComponent implements OnInit {
     reservation: new FormControl('', Validators.required),
   });
 
-  options: string[] = ['One', 'Two', 'Three'];
+  options: string[];
 
   filteredOptions: Observable<string[]>;
 
@@ -25,6 +25,8 @@ export class RsvpComponent implements OnInit {
   constructor(private reservationService: ReservationService) { }
 
   ngOnInit() {
+
+    this.reservationService.getRSVPNames().subscribe(o => this.options = o);
     this.filteredOptions = this.reservationLookupForm.controls['reservation'].valueChanges
       .pipe(
         startWith(''),

@@ -5,6 +5,9 @@ export class Guest {
   name: string;
   mealChoice: MealChoiceEnum;
 
-  constructor() {}
+  constructor(name: string, mealChoice: MealChoiceEnum) {
+    this.name = name;
+    this.mealChoice = mealChoice;
+  }
 
 }
