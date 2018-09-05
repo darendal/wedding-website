@@ -1,29 +1,35 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { HomeComponent } from './home/home.component';
-import { RsvpComponent } from './rsvp/rsvp.component';
-import { PhotosComponent } from './photos/photos.component';
-import { EventsComponent } from './events/events.component';
-import { TravelComponent } from './travel/travel.component';
-import { RegistryComponent } from './registry/registry.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {AppComponent} from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {HomeComponent} from './home/home.component';
+import {RsvpComponent} from './rsvp/rsvp.component';
+import {PhotosComponent} from './photos/photos.component';
+import {EventsComponent} from './events/events.component';
+import {TravelComponent} from './travel/travel.component';
+import {RegistryComponent} from './registry/registry.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
+  MatAutocompleteModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule,
   MatDividerModule,
-  MatIconModule,
-  MatMenuModule,
-  MatTabsModule,
-  MatToolbarModule,
+  MatFormFieldModule,
   MatGridListModule,
-  MatProgressSpinnerModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, MatButtonModule
+  MatIconModule,
+  MatInputModule,
+  MatMenuModule,
+  MatProgressSpinnerModule, MatRadioModule, MatSelectModule,
+  MatTabsModule,
+  MatToolbarModule
 } from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {NgMasonryGridModule} from 'ng-masonry-grid';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {YagaModule} from '@yaga/leaflet-ng2';
-import {EventsService} from './events.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ReservationComponent} from './reservation/reservation.component';
+import {EnumToArrayPipe} from './enum-to-array.pipe';
+
 
 @NgModule({
   declarations: [
@@ -34,6 +40,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     EventsComponent,
     TravelComponent,
     RegistryComponent,
+    ReservationComponent,
+    EnumToArrayPipe,
   ],
   imports: [
     BrowserModule,
@@ -55,9 +63,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatCardModule
   ],
-  providers: [EventsService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

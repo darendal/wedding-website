@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Event} from './event';
+import {Event} from '../../models/event';
 
 const events: Event[] = [
   {

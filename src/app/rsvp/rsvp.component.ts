@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {map, startWith} from 'rxjs/operators';
-import {log} from 'util';
+import {Reservation} from '../models/reservation';
+import {ReservationService} from '../services/reservation/reservation.service';
 
 @Component({
   selector: 'app-rsvp',
@@ -11,16 +12,20 @@ import {log} from 'util';
 })
 export class RsvpComponent implements OnInit {
 
-  profileForm = new FormGroup({
+  reservationLookupForm = new FormGroup({
     reservation: new FormControl('', Validators.required),
   });
+
   options: string[] = ['One', 'Two', 'Three'];
-  constructor() { }
 
   filteredOptions: Observable<string[]>;
 
+  reservation: Reservation;
+
+  constructor(private reservationService: ReservationService) { }
+
   ngOnInit() {
-    this.filteredOptions = this.profileForm.controls['reservation'].valueChanges
+    this.filteredOptions = this.reservationLookupForm.controls['reservation'].valueChanges
       .pipe(
         startWith(''),
         map(val => val.length >= 1 ? this.filter(val) : [])
@@ -33,7 +38,9 @@ export class RsvpComponent implements OnInit {
   }
 
   onSubmit(): void {
-    log('form submitted');
+    const name: string = this.reservationLookupForm.controls['reservation'].value
+    this.reservationService.getReservationByName(name)
+      .subscribe(res => this.reservation = res);
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {OSM_TILE_LAYER_URL} from '@yaga/leaflet-ng2';
-import {EventsService} from '../events.service';
-import {Event} from '../event';
+import {EventsService} from '../services/events/events.service';
+import {Event} from '../models/event';
 
 @Component({
   selector: 'app-events',

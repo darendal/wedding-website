@@ -1,14 +1,18 @@
-<div class="form-container">
-  <form class="rsvp-form" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+<div class="form-container" *ngIf="!reservation; else reservationTemplate">
+  <form class="rsvp-form" [formGroup]="reservationLookupForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="full-width">
       <mat-label>Enter the name on your invitation</mat-label>
       <input type="text" placeholder="John and Jane Doe" matInput formControlName="reservation" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{option}}
+          {{ option }}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <button mat-raised-button color="primary" class="submit" type="submit" [disabled]="!profileForm.valid">Find RSVP</button>
+    <button mat-raised-button color="primary" class="submit" type="submit" [disabled]="!reservationLookupForm.valid">Find RSVP</button>
   </form>
 </div>
+<ng-template #reservationTemplate>
+  <app-reservation [(reservation)]="reservation"></app-reservation>
+</ng-template>
+

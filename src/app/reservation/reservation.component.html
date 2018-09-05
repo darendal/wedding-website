@@ -1,0 +1,47 @@
+<div *ngIf="reservation" >
+  <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+    <div class="card-container">
+      <mat-card class="card">
+        <mat-card-header>
+          <mat-card-title>Reservation for {{ reservation.name }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="guest-card-content">
+          <mat-label>Will you be able to attend?</mat-label>
+          <mat-radio-group formControlName="willAttend" class="radio-group" >
+            <br/>
+            <mat-radio-button [checked]="reservation.willAttend" class="radio-button" value="true">Yes, I'll attend</mat-radio-button>
+            <mat-radio-button [checked]="!reservation.willAttend" class="radio-button" value="false">Regretfully decline</mat-radio-button>
+          </mat-radio-group>
+          <br/>
+          <div formArrayName="guests" class="main-card-content" *ngIf="reservationForm.get('willAttend').value == 'true'">
+            <mat-card *ngFor="let guest of reservationForm.controls['guests'].controls; let i = index;" formGroupName="{{i}}" class="guest-card">
+              <mat-card-header>
+                <mat-card-title>Guest # {{ i+1 }} of {{ reservation.maxGuests }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content class="guest-card-content">
+                <mat-form-field class="form-component">
+                  <mat-label>Guest Name</mat-label>
+                  <input type="text" placeholder="John Doe" matInput formControlName="guestName">
+                </mat-form-field>
+                <mat-form-field class="form-component">
+                  <mat-select placeholder="Dinner selection" formControlName="mealChoice" [compareWith]="compareFn">
+                    <mat-option *ngFor="let choice of MealChoiceEnum | enumToArray" [value]="MealChoiceEnum[choice]">{{choice}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-card-content>
+              <mat-card-actions align="end">
+                <button mat-raised-button color="accent" *ngIf="i > 0" (click)="removeGuest(i)"><mat-icon>remove</mat-icon>Remove</button>
+              </mat-card-actions>
+            </mat-card>
+            <button mat-raised-button *ngIf="reservationForm.controls['guests'].length < reservation.maxGuests" (click)="addGuest()">
+              <mat-icon>add</mat-icon>Add
+            </button>
+          </div>
+        </mat-card-content>
+        <mat-card-actions >
+          <button mat-raised-button color="primary" type="submit" [disabled]="!reservationForm.valid">Submit RSVP</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </form>
+</div>
