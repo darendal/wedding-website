@@ -38,7 +38,7 @@ export class RsvpComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const name: string = this.reservationLookupForm.controls['reservation'].value
+    const name: string = this.reservationLookupForm.controls['reservation'].value;
     this.reservationService.getReservationByName(name)
       .subscribe(res => this.reservation = res);
   }

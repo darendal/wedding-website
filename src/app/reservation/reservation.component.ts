@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Reservation} from '../models/reservation';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {log} from 'util';
 import {MealChoiceEnum} from '../models/mealChoice.enum';
 
@@ -24,7 +24,7 @@ export class ReservationComponent implements OnInit {
   ngOnInit() {
 
     this.reservationForm = this.fb.group({
-      willAttend: this.fb.control(['']),
+      willAttend: this.fb.control([Validators.required]),
       guests: this.fb.array([])
     });
 
@@ -36,10 +36,17 @@ export class ReservationComponent implements OnInit {
       this.addGuest();
     }
 
+    this.reservationForm.get('willAttend').valueChanges.subscribe(willAttend => {
+      if (willAttend === 'true' || willAttend === true) {
+        this.addGuestValidator();
+      } else if (willAttend === 'false' || willAttend === false) {
+        this.removeGuestValidator();
+      }
+    });
+
     this.reservationForm.patchValue({
       willAttend: this.reservation.willAttend
     });
-
 
   }
 
@@ -61,6 +68,7 @@ export class ReservationComponent implements OnInit {
     });
 
     control.push(newGroup);
+    this.addGuestValidator();
 
   }
 
@@ -71,6 +79,38 @@ export class ReservationComponent implements OnInit {
 
   compareByValue(f1: string, f2: string) {
     return f1 === f2;
+  }
+
+  addGuestValidator(): void {
+    const guestsControls = <FormArray>this.reservationForm.get('guests');
+
+    guestsControls.controls.forEach((guestGroup: FormGroup) => {
+      let control = guestGroup.get('guestName');
+      control.setValidators([Validators.required]);
+      control.updateValueAndValidity();
+      control = guestGroup.get('mealChoice');
+      control.setValidators([Validators.required]);
+      control.updateValueAndValidity();
+    });
+
+  }
+
+  removeGuestValidator(): void {
+    const guestsControls = <FormArray>this.reservationForm.get('guests');
+
+    guestsControls.controls.forEach((guestGroup: FormGroup) => {
+      let control = guestGroup.get('guestName');
+      control.clearValidators();
+      control.updateValueAndValidity();
+      control = guestGroup.get('mealChoice');
+      control.clearValidators();
+      control.updateValueAndValidity();
+    });
+  }
+
+  hasError(index: number, field: string): boolean {
+    const control = <FormArray>this.reservationForm.controls['guests'];
+    return control.at(index).get(field).hasError('required');
   }
 
 }

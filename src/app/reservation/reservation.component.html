@@ -7,26 +7,32 @@
         </mat-card-header>
         <mat-card-content class="guest-card-content">
           <mat-label>Will you be able to attend?</mat-label>
-          <mat-radio-group formControlName="willAttend" class="radio-group" >
+          <mat-radio-group formControlName="willAttend" class="radio-group" required>
             <br/>
-            <mat-radio-button [checked]="reservation.willAttend" class="radio-button" value="true">Yes, I'll attend</mat-radio-button>
-            <mat-radio-button [checked]="!reservation.willAttend" class="radio-button" value="false">Regretfully decline</mat-radio-button>
+            <mat-radio-button [checked]="reservation.willAttend" class="radio-button" value="{{true}}">Yes, I'll attend</mat-radio-button>
+            <mat-radio-button [checked]="!reservation.willAttend" class="radio-button" value="{{false}}">Regretfully decline</mat-radio-button>
           </mat-radio-group>
           <br/>
           <div formArrayName="guests" class="main-card-content" *ngIf="reservationForm.get('willAttend').value == 'true'">
             <mat-card *ngFor="let guest of reservationForm.controls['guests'].controls; let i = index;" formGroupName="{{i}}" class="guest-card">
               <mat-card-header>
-                <mat-card-title>Guest # {{ i+1 }} of {{ reservation.maxGuests }}</mat-card-title>
+                <mat-card-title>Guest #{{ i+1 }} of {{ reservation.maxGuests }}</mat-card-title>
               </mat-card-header>
               <mat-card-content class="guest-card-content">
                 <mat-form-field class="form-component">
                   <mat-label>Guest Name</mat-label>
-                  <input type="text" placeholder="John Doe" matInput formControlName="guestName">
+                  <input type="text" placeholder="John Doe" matInput formControlName="guestName" required>
+                  <mat-error *ngIf="hasError(i, 'guestName')">
+                   Please enter a name for this guest
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field class="form-component">
-                  <mat-select placeholder="Dinner selection" formControlName="mealChoice" [compareWith]="compareFn">
-                    <mat-option *ngFor="let choice of MealChoiceEnum | enumToArray" [value]="MealChoiceEnum[choice]">{{choice}}</mat-option>
+                  <mat-select placeholder="Dinner selection" formControlName="mealChoice" [compareWith]="compareFn" required>
+                    <mat-option *ngFor="let choice of MealChoiceEnum | enumToArray" [value]="MealChoiceEnum[choice]">{{ choice }}</mat-option>
                   </mat-select>
+                  <mat-error *ngIf="hasError(i, 'mealChoice')">
+                    Please select a dinner option for this guest
+                  </mat-error>
                 </mat-form-field>
               </mat-card-content>
               <mat-card-actions align="end">
@@ -39,7 +45,7 @@
           </div>
         </mat-card-content>
         <mat-card-actions >
-          <button mat-raised-button color="primary" type="submit" [disabled]="!reservationForm.valid">Submit RSVP</button>
+          <button mat-raised-button color="primary" type="submit" [(disabled)]="!reservationForm.valid">Submit RSVP</button>
         </mat-card-actions>
       </mat-card>
     </div>

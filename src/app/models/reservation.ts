@@ -1,5 +1,4 @@
 import {Guest} from './guest';
-import {MealChoiceEnum} from './mealChoice.enum';
 
 export class Reservation {
   id: number;
