@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "weddingsite-1535434385495"
+    "default": "weddingsite-1535434385495",
+    "prod": "weddingsite-1535434385495"
   }
 }

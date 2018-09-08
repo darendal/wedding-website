@@ -1,9 +1,9 @@
 .linebreak {
   width: 100%;
-  height: 10%;
-  background:
-    url(https://via.placeholder.com/10x50)
-    repeat-x;
+  /*background: url(/assets/photos/vines.png) repeat-x center top;*/
+  background-size: 15vh;
+  padding-top: 5px;
+
 }
 
 .title-center {
@@ -25,6 +25,7 @@
   display: inline-flex;
   font-weight: 200;
   font-family: Cardo, serif;
+  color: var(--main-color);
 }
 
 .title-image {
@@ -47,7 +48,7 @@
 
 footer {
   font-weight: lighter;
-  font-size: x-small;
+  font-size: xx-small;
   overflow: hidden;
   text-align: center;
 }

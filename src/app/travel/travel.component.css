@@ -3,6 +3,7 @@
   text-transform: uppercase;
   letter-spacing: 3px;
   font-weight: bold;
+  color: var(--main-color);
 }
 
 a {
@@ -10,5 +11,5 @@ a {
   text-transform: uppercase;
   letter-spacing: 3px;
   text-decoration: none;
-  color: black;
+  color: var(--link-color);
 }

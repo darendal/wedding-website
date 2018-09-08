@@ -13,6 +13,7 @@
   font-size: 20pt;
   text-transform: uppercase;
   letter-spacing: 3px;
+  color: var(--main-color);
 }
 
 .map-event-name {
@@ -26,7 +27,7 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   text-decoration: none;
-  color: black;
+  color: var(--link-color);
 }
 
 :host /deep/ .yaga-map {

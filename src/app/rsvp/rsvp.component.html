@@ -2,7 +2,7 @@
   <form class="rsvp-form" [formGroup]="reservationLookupForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="full-width">
       <mat-label>Enter the name on your invitation</mat-label>
-      <input type="text" placeholder="John and Jane Doe" matInput formControlName="reservation" [matAutocomplete]="auto">
+      <input type="text" placeholder="John and Jane Doe" matInput formControlName="reservation" [matAutocomplete]="auto" required>
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
           {{ option }}

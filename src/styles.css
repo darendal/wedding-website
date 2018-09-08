@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~ng-masonry-grid/ng-masonry-grid.css";
-
+:root{
+  --link-color: #691759;
+  --main-color: #1C327F;
+}
 body { margin: 0; font-family: 'Cardo', serif; }
