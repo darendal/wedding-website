@@ -1,7 +1,6 @@
 import {MealChoiceEnum} from './mealChoice.enum';
 
 export class Guest {
-  id: number;
   name: string;
   mealChoice: MealChoiceEnum;
 
@@ -9,5 +8,4 @@ export class Guest {
     this.name = name;
     this.mealChoice = mealChoice;
   }
-
 }

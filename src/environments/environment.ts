@@ -12,5 +12,6 @@ export const environment = {
     projectId: 'testdbproject-94312',
     storageBucket: 'testdbproject-94312.appspot.com',
     messagingSenderId: '925248733486'
-  }
+  },
+  reservation_path: 'reservations'
 };

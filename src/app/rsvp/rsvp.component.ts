@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {map, startWith} from 'rxjs/operators';
 import {Reservation} from '../models/reservation';
 import {ReservationService} from '../services/reservation/reservation.service';
+import {MessageService} from '../services/message/message.service';
 
 @Component({
   selector: 'app-rsvp',
@@ -22,7 +23,7 @@ export class RsvpComponent implements OnInit {
 
   reservation: Reservation;
 
-  constructor(private reservationService: ReservationService) { }
+  constructor(private reservationService: ReservationService, private messageService: MessageService) { }
 
   ngOnInit() {
 
@@ -41,8 +42,12 @@ export class RsvpComponent implements OnInit {
 
   onSubmit(): void {
     const name: string = this.reservationLookupForm.controls['reservation'].value;
-    this.reservationService.getReservationByName(name)
-      .subscribe(res => this.reservation = res );
+    if (this.options.includes(name)) {
+      this.reservationService.getReservationByName(name)
+        .subscribe(res => this.reservation = res );
+    } else {
+      this.messageService.showMessage('Please select a valid reservation name');
+    }
   }
 
   formSubmitted(agreed: boolean): void {
