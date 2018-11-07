@@ -7,9 +7,9 @@ branches:
 addons:
   apt:
     update:
-      true
-  packages:
-    git-secret
+      - true
+    packages:
+    - git-secret
 before_install:
 - openssl aes-256-cbc -K $encrypted_d32b82685a0c_key -iv $encrypted_d32b82685a0c_iv
   -in travis.privatekey.enc -out travis.privatekey -d
