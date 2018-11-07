@@ -1,4 +1,5 @@
 #.travis.yml
+os: osx
 
 language: node_js
 node_js:
@@ -11,8 +12,11 @@ branches:
 before_script:
   - npm install -g firebase-tools
   - npm install -g @angular/cli
+  - brew install gpg
+  - brew install git-secret
 
 script:
+  - git secret reveal -p $SECRET_PASSWORD
   - ng build --prod
 
 after_success:
