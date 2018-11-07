@@ -15,7 +15,7 @@ before_script:
   - brew install git-secret
 
 script:
-  - gpg --import $PUBLIC_KEY
+  - gpg --import travis.key
   - git secret reveal -p $SECRET_PASSWORD
   - ng build --prod
 
