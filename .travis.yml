@@ -20,7 +20,7 @@ script:
 - echo $SECRET_PASSWORD | gpg --batch --import travis.privatekey
 - gpg --list-keys
 - gpg --list-secret-keys
-- git secret reveal -p $SECRET_PASSWORD
+- git secret reveal -p $SECRET_PASSWORD -d /home/travis/.gnupg/secring.gpg
 - ng build --prod
 after_success:
 - firebase deploy --token $FIREBASE_TOKEN
