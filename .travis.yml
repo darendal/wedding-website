@@ -1,27 +1,23 @@
-#.travis.yml
 os: osx
-
 language: node_js
 node_js:
-  - "8.12"
-
+- '8.12'
 branches:
   only:
-    - master
-
+  - master
 before_script:
-  - npm install -g firebase-tools
-  - npm install -g @angular/cli
-  - brew install git-secret
-
+- openssl aes-256-cbc -K $encrypted_d32b82685a0c_key -iv $encrypted_d32b82685a0c_iv
+  -in travis.privatekey.enc -out travis.privatekey -d
+- npm install -g firebase-tools
+- npm install -g @angular/cli
+- brew install git-secret
 script:
-  - gpg --import travis.key
-  - git secret reveal -p $SECRET_PASSWORD
-  - ng build --prod
-
+- gpg --import travis.privatekey
+- gpg --import travis.key
+- git secret reveal -p $SECRET_PASSWORD
+- ng build --prod
 after_success:
-  - firebase deploy --token $FIREBASE_TOKEN
-
+- firebase deploy --token $FIREBASE_TOKEN
 notifications:
   email:
     on_failure: change
