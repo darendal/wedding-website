@@ -13,9 +13,13 @@ before_install:
 before_script:
 - npm install -g firebase-tools
 - npm install -g @angular/cli
+- gpg --list-keys
+- gpg --list-secret-keys
 script:
 - gpg --import travis.key
 - echo $SECRET_PASSWORD | gpg --batch --import travis.privatekey
+- gpg --list-keys
+- gpg --list-secret-keys
 - git secret reveal -p $SECRET_PASSWORD
 - ng build --prod
 after_success:
