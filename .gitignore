@@ -43,4 +43,4 @@ Thumbs.db
 .gitsecret/keys/random_seed
 
 # Secrets (Shhhh!)
-
+/src/environments/*.ts

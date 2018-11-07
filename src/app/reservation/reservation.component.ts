@@ -41,9 +41,10 @@ export class ReservationComponent implements OnInit {
     }
 
     this.reservationForm.get('willAttend').valueChanges.subscribe(willAttend => {
-      if (willAttend === 'true' || willAttend === true) {
+      willAttend = willAttend === 'true';
+      if (willAttend) {
         this.addGuestValidator();
-      } else if (willAttend === 'false' || willAttend === false) {
+      } else {
         this.removeGuestValidator();
       }
     });
@@ -58,7 +59,7 @@ export class ReservationComponent implements OnInit {
     if (this.reservationForm.valid) {
       const formValues = this.reservationForm.value;
 
-      this.reservation.willAttend = formValues['willAttend'];
+      this.reservation.willAttend = formValues['willAttend'] === 'true';
 
       // Clear guests
       this.reservation.guests = [];
@@ -67,7 +68,7 @@ export class ReservationComponent implements OnInit {
         this.reservation.guests.push(new Guest(guest['guestName'], guest['mealChoice']));
       }
 
-      this.resService.saveReservation(this.reservation).subscribe((response: boolean) => {
+      this.resService.saveReservation(this.reservation).then((response: boolean) => {
         if (response) {
           if (this.reservation.willAttend) {
             this.messageService.showMessage('RSVP received, we look forward to seeing you!');

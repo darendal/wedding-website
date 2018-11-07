@@ -29,7 +29,9 @@ import {YagaModule} from '@yaga/leaflet-ng2';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ReservationComponent} from './reservation/reservation.component';
 import {EnumToArrayPipe} from './enum-to-array.pipe';
-
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,9 @@ import {EnumToArrayPipe} from './enum-to-array.pipe';
     MatRadioModule,
     MatSelectModule,
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

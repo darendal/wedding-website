@@ -1,13 +1,14 @@
 import {Guest} from './guest';
 
 export class Reservation {
-  id: number;
+  id: string;
   name: string;
   willAttend: boolean;
   guests: Guest[];
   maxGuests: number;
+  modified: number;
 
-  constructor(id: number, name: string) {
+  constructor(id: string, name: string) {
     this.id = id;
     this.name = name;
     this.maxGuests = 2;

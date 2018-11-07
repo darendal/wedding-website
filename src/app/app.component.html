@@ -6,7 +6,7 @@
           <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <a mat-menu-item *ngFor="let link of navLinks" href="{{link.path}}">{{link.label}}</a>
+          <a mat-menu-item *ngFor="let link of navLinks" href="{{link.path}}">{{ link.label }}</a>
         </mat-menu>
       </div>
       <span class="title-center" fxLayout.sm="columns">
@@ -24,7 +24,7 @@
        routerLinkActive #rla="routerLinkActive"
        [routerLinkActiveOptions]="{exact:true}"
        [active]="rla.isActive">
-      {{link.label}}
+      {{ link.label }}
     </a>
   </nav>
   <br/>
