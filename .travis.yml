@@ -6,9 +6,12 @@ branches:
   - master
 before_install:
 - openssl aes-256-cbc -K $encrypted_d32b82685a0c_key -iv $encrypted_d32b82685a0c_iv
+  -in all.gpg.enc -out all.gpg -d
+- openssl aes-256-cbc -K $encrypted_d32b82685a0c_key -iv $encrypted_d32b82685a0c_iv
   -in travis.privatekey.enc -out travis.privatekey -d
 - echo "deb https://dl.bintray.com/sobolevn/deb git-secret main" | sudo tee -a /etc/apt/sources.list
-- wget -qO - https://api.bintray.com/users/sobolevn/keys/gpg/public.key | sudo apt-key add -
+- wget -qO - https://api.bintray.com/users/sobolevn/keys/gpg/public.key | sudo apt-key
+  add -
 - sudo apt-get update && sudo apt-get install git-secret
 before_script:
 - npm install -g firebase-tools
@@ -18,6 +21,7 @@ before_script:
 script:
 - gpg --import travis.key
 - echo $SECRET_PASSWORD | gpg --batch --import travis.privatekey
+- gpg --import all.gpg
 - gpg --list-keys
 - gpg --list-secret-keys
 - git secret reveal -p $SECRET_PASSWORD -d /home/travis/.gnupg/
@@ -28,4 +32,3 @@ notifications:
   email:
     on_failure: change
     on_success: change
-
