@@ -1,4 +1,3 @@
-os: osx
 language: node_js
 node_js:
 - '8.12'
@@ -10,9 +9,9 @@ before_script:
   -in travis.privatekey.enc -out travis.privatekey -d
 - npm install -g firebase-tools
 - npm install -g @angular/cli
-- brew install git-secret
+- apt-get install git-secret -y
 script:
-- gpg --import travis.privatekey
+- echo $SECRET_PASSWORD | gpg --batch --import travis.privatekey
 - gpg --import travis.key
 - git secret reveal -p $SECRET_PASSWORD
 - ng build --prod
