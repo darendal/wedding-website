@@ -1,27 +1,19 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {PhotosRespose} from '../../models/photos.respose';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
-  })
-};
+import {AngularFireStorage} from '@angular/fire/storage';
+import {Photo} from '../../models/photo';
+import {AngularFirestore} from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PhotosService {
 
-  url = 'https://weddingphotosservice.azurewebsites.net/api/HttpTriggerCSharp1?code=7PsP1lPY1uuUaiTuCxnEUvbI2ITlS4nLVrEluaobyz3d9CEOcDR1tw==';
-  constructor(private http: HttpClient) { }
+  constructor(private storage: AngularFireStorage,
+              private firestore: AngularFirestore) { }
 
-  getPhotos(): Observable<PhotosRespose> {
-    return this.http.get<PhotosRespose>(this.url, httpOptions);
+  getPhotos(): Observable<Photo[]> {
+    return this.firestore.collection<Photo>('photos').valueChanges();
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, isDevMode} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -16,4 +16,10 @@ export class AppComponent {
       {path: 'travel', label: 'Travel', isActive: false},
       {path: 'registry', label: 'Registry', isActive: false},
     ];
+
+  constructor() {
+    if (isDevMode()) {
+      this.navLinks.push({path: 'dev', label: 'Developer', isActive: false});
+    }
+  }
 }

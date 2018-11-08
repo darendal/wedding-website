@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PhotosService} from '../services/photos/photos.service';
 import {Photo} from '../models/photo';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-photos',
@@ -9,7 +10,7 @@ import {Photo} from '../models/photo';
 })
 export class PhotosComponent implements OnInit {
 
-  photos: Photo[];
+  photos: Observable<Photo[]>;
   isLoaded: boolean;
 
   constructor(private photoService: PhotosService) { }
@@ -20,11 +21,8 @@ export class PhotosComponent implements OnInit {
   }
 
   getPhotos(): void {
-     this.photoService.getPhotos()
-       .subscribe(response => {
-         this.isLoaded = true;
-         this.photos = response.resources;
-       });
+     this.photos = this.photoService.getPhotos();
+     this.photos.subscribe( () => this.isLoaded = true);
   }
 
 }

@@ -11,14 +11,19 @@ import {RegistryComponent} from './registry/registry.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatAutocompleteModule,
-  MatButtonModule, MatCardModule, MatCheckboxModule,
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
   MatDividerModule,
   MatFormFieldModule,
   MatGridListModule,
   MatIconModule,
   MatInputModule,
   MatMenuModule,
-  MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatSnackBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatSnackBarModule,
   MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
@@ -29,9 +34,11 @@ import {YagaModule} from '@yaga/leaflet-ng2';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ReservationComponent} from './reservation/reservation.component';
 import {EnumToArrayPipe} from './enum-to-array.pipe';
-import { AngularFireModule } from '@angular/fire';
-import { environment } from '../environments/environment';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {DevComponent} from './dev/dev.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +51,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
     RegistryComponent,
     ReservationComponent,
     EnumToArrayPipe,
+    DevComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +80,8 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
     MatCardModule,
     MatSnackBarModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
