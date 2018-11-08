@@ -1,0 +1,5 @@
+<div *ngIf="isDevMode()">
+  <ul>
+    <li *ngFor="let photo of photos | async"> <img src="{{photo.url}}"></li>
+  </ul>
+</div>

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Reservation} from '../../models/reservation';
 import {log} from 'util';
@@ -50,7 +50,6 @@ export class ReservationService {
       name: reservation.name
     };
 
-    log(update);
     const reservationDoc = this.firebase.doc<Reservation>(`${this.path}/${update.id}`);
 
     return reservationDoc.update(update)

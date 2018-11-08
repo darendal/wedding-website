@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {RsvpComponent} from './rsvp/rsvp.component';
@@ -6,6 +6,7 @@ import {PhotosComponent} from './photos/photos.component';
 import {EventsComponent} from './events/events.component';
 import {TravelComponent} from './travel/travel.component';
 import {RegistryComponent} from './registry/registry.component';
+import {DevComponent} from './dev/dev.component';
 
 const routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -14,7 +15,8 @@ const routes = [
   {path: 'photos',   component: PhotosComponent},
   {path: 'events',   component: EventsComponent},
   {path: 'travel',   component: TravelComponent},
-  {path: 'registry', component: RegistryComponent}
+  {path: 'registry', component: RegistryComponent},
+  {path: 'dev',      component: DevComponent}
   ];
 
 @NgModule({

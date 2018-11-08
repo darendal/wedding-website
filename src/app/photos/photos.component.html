@@ -7,8 +7,8 @@
     [useImagesLoaded]="true"
   >
 
-    <ng-masonry-grid-item id="{{'masonry-grid-item-' + i}}" *ngFor="let item of photos; let i = index">
-      <img src="{{item.secure_url}}" alt="{{item.public_id}}" >
+    <ng-masonry-grid-item id="{{'masonry-grid-item-' + i}}" *ngFor="let item of photos | async; let i = index ">
+      <img src="{{item.url}}" >
     </ng-masonry-grid-item>
 
   </ng-masonry-grid>
