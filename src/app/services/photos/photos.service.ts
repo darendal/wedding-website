@@ -9,11 +9,13 @@ import {AngularFirestore} from '@angular/fire/firestore';
 })
 export class PhotosService {
 
+  private readonly path: string  = 'photos';
+
   constructor(private storage: AngularFireStorage,
               private firestore: AngularFirestore) { }
 
   getPhotos(): Observable<Photo[]> {
-    return this.firestore.collection<Photo>('photos').valueChanges();
+    return this.firestore.collection<Photo>(this.path).valueChanges();
   }
 
 }
