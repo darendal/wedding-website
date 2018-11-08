@@ -7,8 +7,8 @@ branches:
 before_install:
 - openssl aes-256-cbc -K $encrypted_d32b82685a0c_key -iv $encrypted_d32b82685a0c_iv
   -in all.gpg.enc -out all.gpg -d
-- openssl aes-256-cbc -K $encrypted_d32b82685a0c_key -iv $encrypted_d32b82685a0c_iv
-  -in travis.privatekey.enc -out travis.privatekey -d
+#- openssl aes-256-cbc -K $encrypted_d32b82685a0c_key -iv $encrypted_d32b82685a0c_iv
+ # -in travis.privatekey.enc -out travis.privatekey -d
 - echo "deb https://dl.bintray.com/sobolevn/deb git-secret main" | sudo tee -a /etc/apt/sources.list
 - wget -qO - https://api.bintray.com/users/sobolevn/keys/gpg/public.key | sudo apt-key
   add -
@@ -19,8 +19,8 @@ before_script:
 - gpg --list-keys
 - gpg --list-secret-keys
 script:
-- gpg --import travis.key
-- echo $SECRET_PASSWORD | gpg --batch --import travis.privatekey
+#- gpg --import travis.key
+#- echo $SECRET_PASSWORD | gpg --batch --import travis.privatekey
 - gpg --import all.gpg
 - gpg --list-keys
 - gpg --list-secret-keys
