@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
+import {LoggingService} from '../logging/logging.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class MessageService {
   messagesToDisplay: string[] = [];
   isProcessing = false;
 
-  constructor(private snackbar: MatSnackBar) {}
+  constructor(private snackbar: MatSnackBar, private log: LoggingService) {}
 
   showMessage(message: string): void {
     this.messagesToDisplay.push(message);

@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Reservation} from '../../models/reservation';
-import {log} from 'util';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
+import {LoggingService} from '../logging/logging.service';
 
 
 @Injectable({
@@ -14,7 +14,7 @@ export class ReservationService {
 
   private readonly path = environment.reservation_path;
 
-  constructor(private readonly firebase: AngularFirestore) {}
+  constructor(private readonly firebase: AngularFirestore, private log: LoggingService) {}
 
   getReservationByName(name: string): Observable<Reservation> {
     return this.firebase.collection<Reservation>(this.path,
@@ -52,9 +52,12 @@ export class ReservationService {
     const reservationDoc = this.firebase.doc<Reservation>(`${this.path}/${update.id}`);
 
     return reservationDoc.update(update)
-      .then(() => true)
+      .then(() => {
+        this.log.debug('Reservation saved successfully!', update)
+        return true;
+      })
       .catch(e => {
-        log(e);
+        this.log.error('Error saving reservation', e);
         return false;
       });
   }
@@ -62,7 +65,10 @@ export class ReservationService {
   putReservation(reservation: Reservation): Promise<boolean> {
     return this.firebase.collection<Reservation>(this.path).add(reservation)
       .then(() => true)
-      .catch(() => false);
+      .catch(e => {
+        this.log.error('Error creating reservation', e);
+        return false;
+      });
   }
 
 }

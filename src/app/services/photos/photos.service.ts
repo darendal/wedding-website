@@ -3,9 +3,9 @@ import {Observable} from 'rxjs/Observable';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {Photo} from '../../models/photo';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {log} from 'util';
 
 import {finalize, map} from 'rxjs/operators';
+import {LoggingService} from '../logging/logging.service';
 
 export interface PendingUpload {
   filename: string;
@@ -20,7 +20,8 @@ export class PhotosService {
   private readonly path: string  = 'photos';
 
   constructor(private storage: AngularFireStorage,
-              private firestore: AngularFirestore) { }
+              private firestore: AngularFirestore,
+              private log: LoggingService) { }
 
   getPhotos(): Observable<Photo[]> {
     return this.firestore.collection<Photo>(this.path).valueChanges();
@@ -62,15 +63,16 @@ export class PhotosService {
         name: name
       };
       this.firestore.collection<Photo>(this.path).add(photo)
-        .then(log('success'))
-        .catch(e => log(e));
+        .then(() => this.log.debug('Upload complete', photo))
+        .catch(e => this.log.error('Error uploading photo', e, photo));
     });
   }
 
   deletePhoto(photo: Photo) {
 
     this.storage.ref(photo.name).delete().toPromise().then(() =>
-      this.firestore.doc(`${this.path}/${photo.id}`).delete()).then(() => log('success'));
+      this.firestore.doc(`${this.path}/${photo.id}`).delete())
+      .then(() => this.log.info('Deleted photo', photo));
   }
 
 
