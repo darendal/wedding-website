@@ -29,19 +29,16 @@ export class AdminReservationsComponent implements OnInit {
     reader.onload = () => {
       this.papa.parse(reader.result, {
         delimiter: ':',
-        complete: (parseResult) => {
-          const value: Promise<boolean>[] = parseResult.data
-            .map(v => this.reservationService.putReservation(Reservation.defaultReservation(v[0], v[1])));
-
-          Promise.all(value).then(values => {
-            const result: boolean = !values.some( v => !v);
-            if (result) {
-              this.messageService.showMessage('All reservations added');
-            } else {
-              this.messageService.showMessage('There was a problem with 1 or more reservations');
-            }
-          } );
-        }
+        complete: (parseResult) => parseResult.data.map(v =>
+          this.reservationService.putReservation(Reservation.defaultReservation(v[0], v[1]))
+            .then(result => {
+                if (result) {
+                  this.messageService.showMessage(`Reservation for ${v[0]} added successfully!`);
+                } else {
+                  this.messageService.showMessage(`Error in reservation for ${v[0]}`);
+                }
+              })
+        )
       });
     };
     reader.readAsText(this.file);
