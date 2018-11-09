@@ -5,6 +5,7 @@ import {PendingUpload, PhotosService} from '../services/photos/photos.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {User} from 'firebase/auth';
 import {auth} from 'firebase/app';
+import {environment} from '../../environments/environment';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class DevComponent implements OnInit {
   photosCanDelete: Observable<Photo[]>;
 
   isValidUser(user: User): boolean {
-    return user.email === 'bware43@gmail.com';
+    return user.email === environment.authenticatedUser;
   }
 
   constructor(private readonly photoService: PhotosService, public fireAuth: AngularFireAuth) { }
