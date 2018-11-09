@@ -20,6 +20,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatMenuModule,
+  MatProgressBarModule,
   MatProgressSpinnerModule,
   MatRadioModule,
   MatSelectModule,
@@ -79,6 +80,7 @@ import {DevComponent} from './dev/dev.component';
     MatSelectModule,
     MatCardModule,
     MatSnackBarModule,
+    MatProgressBarModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireStorageModule
