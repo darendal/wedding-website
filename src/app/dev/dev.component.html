@@ -1,34 +1,42 @@
-<div *ngIf="isDevMode()">
+<div *ngIf="fireAuth.user | async as user; else showLogin">
+  <div *ngIf="isValidUser(user); else invalidUser">
+    <mat-tab-group>
+      <mat-tab label="Upload new pictures">
+        <ng-template matTabContent>
+          <input  (change)="filesUploaded($event)" type="file" accept="image/*" multiple >
+          <button mat-raised-button color="primary" [disabled]="files == null" (click)="submit()">Submit</button>
+          <mat-card class="progressBarsCard">
+            <div class="progressBars" *ngFor="let upload of pendingUploads">
+              <span>{{ upload.filename }}</span>
+              <mat-progress-bar mode="determinate" [value]="upload.percentComplete | async"></mat-progress-bar>
+            </div>
+          </mat-card>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Delete Pictures">
+        <div class="deleteCard">
+          <mat-grid-list cols="4" rowHeight="3:4" gutterSize="5px">
+            <mat-grid-tile *ngFor="let i of photosCanDelete | async">
+              <mat-card  class="deleteCard">
+                <mat-card-header>{{ i.name }}</mat-card-header>
+                <img mat-card-image src="{{i.url}}" class="deleteImage">
+                <mat-card-actions>
+                  <button mat-raised-button color="accent" (click)="deleteImage(i)">Delete</button>
+                </mat-card-actions>
+              </mat-card>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </div>
 
-  <mat-tab-group>
-    <mat-tab label="Upload new pictures">
-      <ng-template matTabContent>
-        <input  (change)="filesUploaded($event)" type="file" accept="image/*" multiple >
-        <button mat-raised-button color="primary" [disabled]="files == null" (click)="submit()">Submit</button>
-        <mat-card class="progressBarsCard">
-          <div class="progressBars" *ngFor="let upload of pendingUploads">
-            <span>{{upload.filename}}</span>
-            <mat-progress-bar mode="determinate" [value]="upload.percentComplete | async"></mat-progress-bar>
-          </div>
-        </mat-card>
-      </ng-template>
-    </mat-tab>
-    <mat-tab label="Delete Pictures">
-      <div class="deleteCard">
-        <mat-grid-list cols="4" rowHeight="3:4" gutterSize="5px">
-          <mat-grid-tile *ngFor="let i of photosCanDelete | async">
-            <mat-card  class="deleteCard">
-              <mat-card-header>{{i.name}}</mat-card-header>
-              <img mat-card-image src="{{i.url}}" class="deleteImage">
-              <mat-card-actions>
-                <button mat-raised-button color="accent" (click)="deleteImage(i)">Delete</button>
-              </mat-card-actions>
-            </mat-card>
-          </mat-grid-tile>
-        </mat-grid-list>
-      </div>
-
-    </mat-tab>
-  </mat-tab-group>
-
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <ng-template #invalidUser>
+    <span>Hey, you're not supposed to be here!</span>
+  </ng-template>
+<button mat-raised-button (click)="logout()">Log Out</button>
 </div>
+<ng-template #showLogin>
+  <p>Please login.</p>
+  <button mat-raised-button (click)="login()">Login with Google</button>
+</ng-template>

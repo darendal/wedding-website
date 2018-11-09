@@ -4,6 +4,8 @@ import {Photo} from '../models/photo';
 import {log} from 'util';
 
 import {PendingUpload, PhotosService} from '../services/photos/photos.service';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {auth, User} from 'firebase';
 
 
 @Component({
@@ -15,10 +17,10 @@ export class DevComponent implements OnInit {
 
   files: Array<File>;
   pendingUploads: PendingUpload[];
-  photosCanDelete: Observable<Photo[]>
+  photosCanDelete: Observable<Photo[]>;
 
 
-  constructor(private readonly photoService: PhotosService) { }
+  constructor(private readonly photoService: PhotosService, public fireAuth: AngularFireAuth) { }
 
   ngOnInit() {
     this.photosCanDelete = this.photoService.getPhotosWithData();
@@ -45,5 +47,16 @@ export class DevComponent implements OnInit {
     return dev;
   }
 
+  login() {
+    this.fireAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+  }
+
+  logout() {
+    this.fireAuth.auth.signOut();
+  }
+
+  isValidUser(user: User): boolean {
+    return user.email === 'bware43@gmail.com';
+  }
 
 }
