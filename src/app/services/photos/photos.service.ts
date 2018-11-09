@@ -27,7 +27,6 @@ export class PhotosService {
   }
 
   getPhotosWithData(): Observable<Photo[]> {
-    log('test');
     return this.firestore.collection<Photo>(this.path).snapshotChanges().pipe(
       map(o => o.map(p => {
         const id = p.payload.doc.id;

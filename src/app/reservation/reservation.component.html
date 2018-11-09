@@ -13,7 +13,7 @@
             <mat-radio-button [checked]="!reservation.willAttend" class="radio-button" value={{false}}>Regretfully decline</mat-radio-button>
           </mat-radio-group>
           <br/>
-          <div formArrayName="guests" class="main-card-content" *ngIf="reservationForm.get('willAttend').value == 'true'">
+          <div formArrayName="guests" class="main-card-content" *ngIf="reservationForm.get('willAttend').value.toString() === 'true'">
             <mat-card *ngFor="let guest of reservationForm.controls['guests'].controls; let i = index;" formGroupName="{{i}}" class="guest-card">
               <mat-card-header>
                 <mat-card-title>Guest #{{ i+1 }} of {{ reservation.maxGuests }}</mat-card-title>
