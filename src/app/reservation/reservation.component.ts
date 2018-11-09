@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Reservation} from '../models/reservation';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MealChoiceEnum} from '../models/mealChoice.enum';
@@ -13,7 +13,7 @@ import {MessageService} from '../services/message/message.service';
 })
 export class ReservationComponent implements OnInit {
 
-  compareFn: ((f1: any, f2: any) => boolean) | null = this.compareByValue;
+  compareFn: ((f1: any, f2: any) => boolean) | null = ReservationComponent.compareByValue;
 
   reservationForm: FormGroup;
   @Output() formSubmitted: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -21,6 +21,10 @@ export class ReservationComponent implements OnInit {
 
 
   MealChoiceEnum = MealChoiceEnum;
+
+  static compareByValue(f1: string, f2: string) {
+    return f1 === f2;
+  }
 
   constructor(private fb: FormBuilder,
               private resService: ReservationService,
@@ -65,7 +69,9 @@ export class ReservationComponent implements OnInit {
       this.reservation.guests = [];
 
       for (const guest of formValues['guests']) {
-        this.reservation.guests.push(new Guest(guest['guestName'], guest['mealChoice']));
+        if (guest['guestName'] && guest['mealChoice'] !== undefined) {
+          this.reservation.guests.push(new Guest(guest['guestName'], guest['mealChoice']));
+        }
       }
 
       this.resService.saveReservation(this.reservation).then((response: boolean) => {
@@ -106,10 +112,6 @@ export class ReservationComponent implements OnInit {
   removeGuest(index: number): void {
     const control = <FormArray>this.reservationForm.controls['guests'];
     control.removeAt(index);
-  }
-
-  compareByValue(f1: string, f2: string) {
-    return f1 === f2;
   }
 
   addGuestValidator(): void {
