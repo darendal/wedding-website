@@ -1,0 +1,3 @@
+<p>Upload CSV to instantiate RSVPs</p>
+<input  (change)="filesUploaded($event)" type="file" accept="text/csv" >
+<button mat-raised-button color="primary" [disabled]="file == null" (click)="submit()">Submit</button>

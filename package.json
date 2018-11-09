@@ -28,10 +28,12 @@
     "@angular/router": "^6.1.10",
     "@yaga/leaflet-ng2": "^1.0.0-rc12",
     "core-js": "^2.4.1",
+    "csv-parse": "^3.2.0",
     "firebase": "^5.5.7",
     "imagesloaded": "^4.1.4",
     "masonry-layout": "^4.2.2",
     "ng-masonry-grid": "^1.3.0",
+    "ngx-papaparse": "^3.0.0",
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.3",
     "zone.js": "^0.8.14"

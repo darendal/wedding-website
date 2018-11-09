@@ -26,7 +26,8 @@ import {
   MatSelectModule,
   MatSnackBarModule,
   MatTabsModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatTooltipModule
 } from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {NgMasonryGridModule} from 'ng-masonry-grid';
@@ -41,6 +42,9 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {DevComponent} from './dev/dev.component';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AdminPhotosComponent} from './dev/admin.photos/admin.photos.component';
+import {AdminReservationsComponent} from './dev/admin.reservations/admin.reservations.component';
+import {PapaParseModule} from 'ngx-papaparse';
 
 @NgModule({
   declarations: [
@@ -54,6 +58,8 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
     ReservationComponent,
     EnumToArrayPipe,
     DevComponent,
+    AdminPhotosComponent,
+    AdminReservationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,10 +88,12 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
     MatCardModule,
     MatSnackBarModule,
     MatProgressBarModule,
+    MatTooltipModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireStorageModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    PapaParseModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

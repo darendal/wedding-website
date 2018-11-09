@@ -15,4 +15,15 @@ export class Reservation {
     this.willAttend = false;
     this.guests = [];
   }
+
+  static defaultReservation(name: string, maxGuests: number): Reservation {
+    return {
+      id: null,
+      name: name,
+      willAttend: false,
+      guests: [],
+      maxGuests: maxGuests,
+      modified: null
+    };
+  }
 }

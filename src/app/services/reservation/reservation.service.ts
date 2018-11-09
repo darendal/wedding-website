@@ -24,8 +24,7 @@ export class ReservationService {
         map( a => a.pop()), // Can pop, since limit will prevent more than 1 entry returning.
         map( a => {
           const res = a.payload.doc.data() as Reservation;
-          const id = a.payload.doc.id;
-          res.id = id;
+          res.id = a.payload.doc.id;
           return res;
         })
       );
@@ -58,6 +57,12 @@ export class ReservationService {
         log(e);
         return false;
       });
+  }
+
+  putReservation(reservation: Reservation): Promise<boolean> {
+    return this.firebase.collection<Reservation>(this.path).add(reservation)
+      .then(() => true)
+      .catch(() => false);
   }
 
 }
