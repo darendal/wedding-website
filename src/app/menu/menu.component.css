@@ -1,0 +1,27 @@
+h2 {
+  font-size: 25pt;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: bold;
+  color: var(--main-color);
+}
+
+h3 {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: bold;
+  color: var(--link-color);
+}
+
+p {
+  font-style: italic;
+  font-weight: lighter;
+}
+
+.menu {
+  margin: 0 auto;
+  width: 50%;
+
+}
+
+

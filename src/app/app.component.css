@@ -46,6 +46,10 @@
   text-align: center;
 }
 
+.nav-bar-link {
+  min-width: 135px;
+}
+
 footer {
   font-weight: lighter;
   font-size: xx-small;

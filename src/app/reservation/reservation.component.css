@@ -14,14 +14,6 @@
   align-items: center;
 }
 
-.main-card-content {
-
-}
-
-.guest-card-content {
-  align-items: right;
-}
-
 .form-component {
   padding: 10px;
   width: 100%;
@@ -29,8 +21,8 @@
 
 .guest-card {
   width: 90%;
-  margin: 10px;
-  min-width: 280px;
+  margin: 5px 2px;
+  min-width: 100px;
 }
 
 .guest-card-container {

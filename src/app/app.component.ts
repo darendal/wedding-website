@@ -13,6 +13,7 @@ export class AppComponent {
       {path: 'rsvp', label: 'RSVP', isActive: false},
       {path: 'photos', label: 'Photos', isActive: false},
       {path: 'events', label: 'Events', isActive: false},
+      {path: 'menu', label: 'Menu', isActive: false},
       {path: 'travel', label: 'Travel', isActive: false},
       {path: 'registry', label: 'Registry', isActive: false},
     ];

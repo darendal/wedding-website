@@ -19,6 +19,7 @@ import {
   MatGridListModule,
   MatIconModule,
   MatInputModule,
+  MatListModule,
   MatMenuModule,
   MatProgressBarModule,
   MatProgressSpinnerModule,
@@ -45,6 +46,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AdminPhotosComponent} from './dev/admin.photos/admin.photos.component';
 import {AdminReservationsComponent} from './dev/admin.reservations/admin.reservations.component';
 import {PapaParseModule} from 'ngx-papaparse';
+import {MenuComponent} from './menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,7 @@ import {PapaParseModule} from 'ngx-papaparse';
     DevComponent,
     AdminPhotosComponent,
     AdminReservationsComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,6 +92,7 @@ import {PapaParseModule} from 'ngx-papaparse';
     MatSnackBarModule,
     MatProgressBarModule,
     MatTooltipModule,
+    MatListModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireStorageModule,

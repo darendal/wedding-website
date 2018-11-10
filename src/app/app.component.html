@@ -18,7 +18,7 @@
     </mat-toolbar-row>
   </mat-toolbar>
   <nav mat-tab-nav-bar class="nav-links" fxShow fxHide.lt-md="true">
-    <a mat-tab-link
+    <a mat-tab-link class="nav-bar-link"
        *ngFor="let link of navLinks"
        [routerLink]="link.path"
        routerLinkActive #rla="routerLinkActive"
@@ -28,7 +28,6 @@
     </a>
   </nav>
   <br/>
-  <!-- <div class="linebreak"><div style="height: 50px"></div></div> -->
   <router-outlet></router-outlet>
 </div>
 <mat-divider></mat-divider>
