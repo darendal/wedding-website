@@ -26,5 +26,8 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 0;
-  max-height: 500px;
 }
+img{
+  max-height: 200px;
+}
+
