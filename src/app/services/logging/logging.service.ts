@@ -2,7 +2,10 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {LogEntry} from '../../models/logging/log-entry';
 import {LogPublisher} from '../../models/logging/log-publisher';
-import {LogLevel} from '../../models/logging/logLevel.enum';
+import {LogLevel, LogPublishers} from '../../models/logging/logLevel.enum';
+import {LogConsole} from '../../models/logging/log-console';
+import {LogFirestore} from '../../models/logging/log-firestore';
+import {AngularFirestore} from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +14,17 @@ export class LoggingService {
 
   private readonly logLevel;
   private readonly publishers: LogPublisher[];
-  constructor() {
+  constructor(private readonly firestore: AngularFirestore) {
     this.logLevel = environment.logLevel;
-    this.publishers = environment.defaultLogger;
+    this.publishers = environment.logPublishers.map(pub => {
+      switch (pub) {
+        case LogPublishers.Console:
+          return new LogConsole();
+        break;
+        case LogPublishers.Firestore:
+          return new LogFirestore(this.firestore);
+      }
+    });
   }
 
   log(msg: string, ...optionalParams: any[]) {

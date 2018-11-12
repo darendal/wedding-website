@@ -16,7 +16,7 @@ export class LogEntry {
 
     let value = new Date() + ' - ';
 
-    value += 'Type: ' + this.type;
+    value += 'Type: ' + LogLevel[this.type];
     value += ' - Message: ' + this.message;
     if (this.params.length) {
       value += ' - Extra Info: ' + this.params;

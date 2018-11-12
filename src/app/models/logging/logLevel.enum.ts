@@ -7,3 +7,8 @@ export enum LogLevel {
   Fatal = 5,
   Off = 6
 }
+
+export enum LogPublishers {
+  Firestore,
+  Console
+}

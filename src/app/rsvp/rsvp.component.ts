@@ -50,7 +50,7 @@ export class RsvpComponent implements OnInit {
       this.reservationService.getReservationByName(name)
         .subscribe(res => this.reservation = res, e => this.log.error('Error on get reservation by name', e, name) );
     } else {
-      this.log.debug('Invalid name selected from RSVP form', name);
+      this.log.debug('Invalid name selected from RSVP form', {name: name});
       this.messageService.showMessage('Please select a valid reservation name');
     }
   }
