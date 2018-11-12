@@ -1,11 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Reservation} from '../models/reservation';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MealChoiceEnum} from '../models/mealChoice.enum';
+import {MealChoiceEnum, MealChoiceUtils} from '../models/mealChoice.enum';
 import {Guest} from '../models/guest';
 import {ReservationService} from '../services/reservation/reservation.service';
 import {MessageService} from '../services/message/message.service';
 import {LoggingService} from '../services/logging/logging.service';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-reservation',
@@ -30,7 +31,8 @@ export class ReservationComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private resService: ReservationService,
               private messageService: MessageService,
-              private readonly log: LoggingService) { }
+              private readonly log: LoggingService,
+              private matDialog: MatDialog) { }
 
   ngOnInit() {
     this.reservationForm = this.fb.group({
@@ -46,17 +48,17 @@ export class ReservationComponent implements OnInit {
       this.addGuest();
     }
 
+    this.reservationForm.patchValue({
+      willAttend: this.reservation.willAttend
+    });
+
     this.reservationForm.get('willAttend').valueChanges.subscribe(willAttend => {
-      willAttend = willAttend === 'true';
+      willAttend = willAttend === 'true' || willAttend === true;
       if (willAttend) {
         this.addGuestValidator();
       } else {
         this.removeGuestValidator();
       }
-    });
-
-    this.reservationForm.patchValue({
-      willAttend: this.reservation.willAttend
     });
 
   }
@@ -75,9 +77,11 @@ export class ReservationComponent implements OnInit {
           this.reservation.guests.push(new Guest(guest['guestName'], guest['mealChoice']));
         }
       }
+      this.matDialog.open(LoadingDialogComponent);
 
       this.log.debug('Saving reservation', this.reservation);
       this.resService.saveReservation(this.reservation).then((response: boolean) => {
+        this.matDialog.closeAll();
         if (response) {
           if (this.reservation.willAttend) {
             this.messageService.showMessage('RSVP received, we look forward to seeing you!');
@@ -151,4 +155,16 @@ export class ReservationComponent implements OnInit {
     return control.at(index).get(field).hasError('required');
   }
 
+  getDisplayName(choice: string): string {
+    return MealChoiceUtils.MealChoiceDisplayName(MealChoiceEnum[choice]);
+  }
+
+}
+
+@Component({
+  selector: 'app-loading-dialog',
+  template: `<h2 mat-dialog-title>Submitting RSVP</h2>
+    <mat-dialog-content><mat-progress-bar mode="indeterminate"></mat-progress-bar></mat-dialog-content>`
+})
+export class LoadingDialogComponent {
 }

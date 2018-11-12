@@ -14,6 +14,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
+  MatDialogModule,
   MatDividerModule,
   MatFormFieldModule,
   MatGridListModule,
@@ -35,7 +36,7 @@ import {NgMasonryGridModule} from 'ng-masonry-grid';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {YagaModule} from '@yaga/leaflet-ng2';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ReservationComponent} from './reservation/reservation.component';
+import {LoadingDialogComponent, ReservationComponent} from './reservation/reservation.component';
 import {EnumToArrayPipe} from './enum-to-array.pipe';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
@@ -58,6 +59,7 @@ import {MenuComponent} from './menu/menu.component';
     TravelComponent,
     RegistryComponent,
     ReservationComponent,
+    LoadingDialogComponent,
     EnumToArrayPipe,
     DevComponent,
     AdminPhotosComponent,
@@ -93,6 +95,7 @@ import {MenuComponent} from './menu/menu.component';
     MatProgressBarModule,
     MatTooltipModule,
     MatListModule,
+    MatDialogModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireStorageModule,
@@ -100,6 +103,7 @@ import {MenuComponent} from './menu/menu.component';
     PapaParseModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [LoadingDialogComponent]
 })
 export class AppModule { }

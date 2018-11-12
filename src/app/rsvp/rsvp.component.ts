@@ -30,18 +30,25 @@ export class RsvpComponent implements OnInit {
 
   ngOnInit() {
 
-    this.reservationService.getRSVPNames().subscribe(o => this.options = o,
-      e => this.log.error('Error getting RSVP names', e));
-    this.filteredOptions = this.reservationLookupForm.controls['reservation'].valueChanges
-      .pipe(
-        startWith(''),
-        map(val => val.length >= 1 ? this.filter(val) : [])
-      );
+    this.reservationService.getRSVPNames().subscribe(o => {
+      this.options = o;
+      this.filteredOptions = this.reservationLookupForm.controls['reservation'].valueChanges
+        .pipe(
+          startWith(''),
+          map(val => this.filter(val))
+        );
+      },
+e => this.log.error('Error getting RSVP names', e)
+    );
+
   }
 
   filter(val: string): string[] {
-    return this.options.filter(option =>
-      option.toLowerCase().indexOf(val.toLowerCase()) === 0);
+
+    if (val.length < 1 ) {
+      return [];
+    }
+    return this.options.filter(option => option.toLowerCase().includes(val.toLowerCase()));
   }
 
   onSubmit(): void {

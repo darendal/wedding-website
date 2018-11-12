@@ -38,7 +38,8 @@ export class ReservationService {
   getRSVPNames(): Observable<string[]> {
     return this.firebase.collection<Reservation>(this.path).valueChanges()
       .pipe(
-        map(o => o.map(u => u.name))
+        map(o => o.map(u => u.name)),
+        catchError( err => {this.log.error('Error getting RSVP names', err); return []; })
     );
   }
 

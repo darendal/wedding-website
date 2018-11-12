@@ -28,7 +28,7 @@
                 </mat-form-field>
                 <mat-form-field class="form-component">
                   <mat-select placeholder="Dinner selection" formControlName="mealChoice" [compareWith]="compareFn" required>
-                    <mat-option *ngFor="let choice of MealChoiceEnum | enumToArray" [value]="MealChoiceEnum[choice]">{{ choice }}</mat-option>
+                    <mat-option *ngFor="let choice of MealChoiceEnum | enumToArray" [value]="MealChoiceEnum[choice]">{{ getDisplayName(choice) }}</mat-option>
                   </mat-select>
                   <mat-error *ngIf="hasError(i, 'mealChoice')">
                     Please select a dinner option for this guest
