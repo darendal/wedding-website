@@ -4,8 +4,9 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import {Photo} from '../../models/photo';
 import {AngularFirestore} from '@angular/fire/firestore';
 
-import {finalize, map} from 'rxjs/operators';
+import {catchError, finalize, map} from 'rxjs/operators';
 import {LoggingService} from '../logging/logging.service';
+import {of} from 'rxjs';
 
 export interface PendingUpload {
   filename: string;
@@ -24,7 +25,9 @@ export class PhotosService {
               private log: LoggingService) { }
 
   getPhotos(): Observable<Photo[]> {
-    return this.firestore.collection<Photo>(this.path).valueChanges();
+    return this.firestore.collection<Photo>(this.path).valueChanges().pipe(
+      catchError(e => {this.log.error('Error fetching Photos from DB', e); return of([]); })
+    );
   }
 
   getPhotosWithData(): Observable<Photo[]> {
@@ -34,7 +37,8 @@ export class PhotosService {
         const photo = p.payload.doc.data();
         photo.id = id;
         return photo;
-      }))
+      })),
+      catchError(e => {this.log.error('Error fetching photos with data from DB', e); return of([]); })
     );
 }
 
@@ -44,7 +48,8 @@ export class PhotosService {
     const task = ref.put(file);
     task.snapshotChanges()
       .pipe(
-        finalize(() => this.handleUploadSuccess(ref.getDownloadURL(), file.name))
+        catchError(e => {this.log.error('Error uploading files to storage', e); return of(); }),
+        finalize(() => this.handleUploadSuccess(ref.getDownloadURL(), file.name)),
       ).subscribe();
 
     return {
@@ -64,7 +69,7 @@ export class PhotosService {
       };
       this.firestore.collection<Photo>(this.path).add(photo)
         .then(() => this.log.debug('Upload complete', photo))
-        .catch(e => this.log.error('Error uploading photo', e, photo));
+        .catch(error => this.log.error('Error uploading photo', error, photo));
     });
   }
 

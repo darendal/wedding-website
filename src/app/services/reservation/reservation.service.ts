@@ -2,9 +2,10 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Reservation} from '../../models/reservation';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {map} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
 import {LoggingService} from '../logging/logging.service';
+import {of} from 'rxjs';
 
 
 @Injectable({
@@ -26,6 +27,10 @@ export class ReservationService {
           const res = a.payload.doc.data() as Reservation;
           res.id = a.payload.doc.id;
           return res;
+        }),
+        catchError(e => {
+          this.log.error('Error fetching Reservation with name ' + name + ' from DB', e);
+          return of(null);
         })
       );
   }
@@ -53,7 +58,7 @@ export class ReservationService {
 
     return reservationDoc.update(update)
       .then(() => {
-        this.log.debug('Reservation saved successfully!', update)
+        this.log.debug('Reservation saved successfully!', update);
         return true;
       })
       .catch(e => {

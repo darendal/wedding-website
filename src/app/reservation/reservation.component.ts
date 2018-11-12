@@ -5,6 +5,7 @@ import {MealChoiceEnum} from '../models/mealChoice.enum';
 import {Guest} from '../models/guest';
 import {ReservationService} from '../services/reservation/reservation.service';
 import {MessageService} from '../services/message/message.service';
+import {LoggingService} from '../services/logging/logging.service';
 
 @Component({
   selector: 'app-reservation',
@@ -28,7 +29,8 @@ export class ReservationComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private resService: ReservationService,
-              private messageService: MessageService) { }
+              private messageService: MessageService,
+              private readonly log: LoggingService) { }
 
   ngOnInit() {
     this.reservationForm = this.fb.group({
@@ -74,6 +76,7 @@ export class ReservationComponent implements OnInit {
         }
       }
 
+      this.log.debug('Saving reservation', this.reservation);
       this.resService.saveReservation(this.reservation).then((response: boolean) => {
         if (response) {
           if (this.reservation.willAttend) {
@@ -85,9 +88,11 @@ export class ReservationComponent implements OnInit {
           this.reservationForm.reset();
           this.formSubmitted.emit(response);
         }  else {
+          this.log.error('non specific error saving Reservation', this.reservation);
           this.messageService.showMessage('Something went wrong :(');
         }
-      });
+      },
+        e => this.log.error('Error saving Reservation', e));
     }
   }
 
