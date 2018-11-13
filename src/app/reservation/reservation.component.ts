@@ -48,17 +48,16 @@ export class ReservationComponent implements OnInit {
       this.addGuest();
     }
 
-    this.reservationForm.patchValue({
-      willAttend: this.reservation.willAttend
-    });
-
     this.reservationForm.get('willAttend').valueChanges.subscribe(willAttend => {
-      willAttend = willAttend === 'true' || willAttend === true;
-      if (willAttend) {
+      if (this.convertToBoolean(willAttend)) {
         this.addGuestValidator();
       } else {
         this.removeGuestValidator();
       }
+    });
+
+    this.reservationForm.patchValue({
+      willAttend: this.convertToBoolean(this.reservation.willAttend)
     });
 
   }
@@ -67,7 +66,7 @@ export class ReservationComponent implements OnInit {
     if (this.reservationForm.valid) {
       const formValues = this.reservationForm.value;
 
-      this.reservation.willAttend = formValues['willAttend'] === 'true';
+      this.reservation.willAttend = this.convertToBoolean(formValues['willAttend']);
 
       // Clear guests
       this.reservation.guests = [];
@@ -157,6 +156,10 @@ export class ReservationComponent implements OnInit {
 
   getDisplayName(choice: string): string {
     return MealChoiceUtils.MealChoiceDisplayName(MealChoiceEnum[choice]);
+  }
+
+  private convertToBoolean(value: any): boolean {
+    return value === true || value === 'true';
   }
 
 }

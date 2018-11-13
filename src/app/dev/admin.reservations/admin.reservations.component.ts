@@ -3,6 +3,7 @@ import {Papa} from 'ngx-papaparse';
 import {Reservation} from '../../models/reservation';
 import {ReservationService} from '../../services/reservation/reservation.service';
 import {MessageService} from '../../services/message/message.service';
+import {PapaParseResult} from 'ngx-papaparse/lib/interfaces/papa-parse-result';
 
 @Component({
   selector: 'app-admin-reservations',
@@ -26,22 +27,30 @@ export class AdminReservationsComponent implements OnInit {
 
   submit(): void {
     const reader = new FileReader();
-    reader.onload = () => {
-      this.papa.parse(reader.result, {
-        delimiter: ':',
-        complete: (parseResult) => parseResult.data.map(v =>
-          this.reservationService.putReservation(Reservation.defaultReservation(v[0], v[1]))
-            .then(result => {
-                if (result) {
-                  this.messageService.showMessage(`Reservation for ${v[0]} added successfully!`);
-                } else {
-                  this.messageService.showMessage(`Error in reservation for ${v[0]}`);
-                }
-              })
-        )
-      });
-    };
+    reader.onload = () => this.handleResult(reader.result);
     reader.readAsText(this.file);
+  }
+
+  private handleResult(result: any) {
+    this.papa.parse(result, {
+      delimiter: ':',
+      complete: (parseResult) => this.submitParsedData(parseResult),
+    });
+  }
+
+  private submitParsedData(parsedResult: PapaParseResult) {
+
+    const newReservations = parsedResult.data.map(v => Reservation.defaultReservation(v[0], v[1]));
+    newReservations.map(reservation =>
+      this.reservationService.putReservation(reservation)
+        .then( result => {
+          if (result) {
+            this.messageService.showMessage(`Reservation for ${reservation.name} added successfully!`);
+          } else {
+            this.messageService.showMessage(`Error in reservation for ${reservation.name}`);
+          }
+        })
+    );
   }
 
 }
