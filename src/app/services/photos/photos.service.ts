@@ -1,12 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable, of} from 'rxjs';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {Photo} from '../../models/photo';
 import {AngularFirestore} from '@angular/fire/firestore';
 
 import {catchError, finalize, map} from 'rxjs/operators';
 import {LoggingService} from '../logging/logging.service';
-import {of} from 'rxjs';
 
 export interface PendingUpload {
   filename: string;

@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import {Reservation} from '../../models/reservation';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {catchError, map} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
 import {LoggingService} from '../logging/logging.service';
-import {of} from 'rxjs';
+import {Observable, of} from 'rxjs';
 
 
 @Injectable({

@@ -1,6 +1,6 @@
 import {LogPublisher} from './log-publisher';
 import {LogEntry} from './log-entry';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {LogLevel} from './logLevel.enum';
 
 export class LogConsole extends LogPublisher {
@@ -15,10 +15,10 @@ export class LogConsole extends LogPublisher {
       default:
         console.log(entry.buildLogString());
     }
-    return Observable.of(true);
+    return of(true);
   }
   clear(): Observable<boolean> {
     console.clear();
-    return Observable.of(true);
+    return of(true);
   }
 }

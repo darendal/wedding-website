@@ -159,6 +159,7 @@ export class ReservationComponent implements OnInit {
   }
 
   private convertToBoolean(value: any): boolean {
+     let test: number[] = [];
     return value === true || value === 'true';
   }
 

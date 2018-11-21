@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
 import {map, startWith} from 'rxjs/operators';
 import {Reservation} from '../models/reservation';
 import {ReservationService} from '../services/reservation/reservation.service';
 import {MessageService} from '../services/message/message.service';
 import {LoggingService} from '../services/logging/logging.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-rsvp',

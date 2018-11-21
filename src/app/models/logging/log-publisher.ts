@@ -1,6 +1,5 @@
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
 import {LogEntry} from './log-entry';
+import {Observable} from 'rxjs';
 
 export abstract class LogPublisher {
   protected location: string;
