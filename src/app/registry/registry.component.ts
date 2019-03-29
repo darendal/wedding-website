@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-registry',
@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistryComponent implements OnInit {
 
+
+  amazonRegistry = 'https://www.amazon.com/wedding/brendan-ware-emily-buchroeder-cleveland-september-2019/registry/1UZKIENGYWMGI';
   constructor() { }
 
   ngOnInit() {

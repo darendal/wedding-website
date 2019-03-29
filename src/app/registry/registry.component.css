@@ -1,0 +1,35 @@
+h1 {
+  font-size: 25pt;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: bold;
+  color: var(--main-color);
+}
+
+h2 {
+  font-size: 20pt;
+  letter-spacing: 4px;
+  font-weight: bold;
+  color: var(--main-color);
+}
+
+span {
+  font-weight: lighter;
+  text-transform: uppercase;
+  color: var(--link-color);
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  height: 50px;
+  width: 150px;
+  margin-bottom: -15px;
+  margin-top: -15px;
+}
+
+.padder {
+  margin-bottom: 15%
+}
