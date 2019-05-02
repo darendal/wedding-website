@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {User} from 'firebase/auth';
-import {auth} from 'firebase/app';
+import {auth, User} from 'firebase/app';
 import {environment} from '../../environments/environment';
 
 
