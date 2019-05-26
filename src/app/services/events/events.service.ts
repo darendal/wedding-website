@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Event} from '../../models/event';
 
 const events: Event[] = [
   {
     eventName: 'Wedding Ceremony',
     eventNumber: 1,
-    dateTime: '1:00 pm, September 14th, 2019',
+    dateTime: '5:30 PM, September 14th, 2019',
     locationName: 'Lantern Court - Holden Arboretum',
     address: '9203 Kirtland Chardon Rd, Kirtland, OH 44094',
     lat: 41.600340,
