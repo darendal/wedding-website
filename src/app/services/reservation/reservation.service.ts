@@ -44,7 +44,6 @@ export class ReservationService {
 
   saveReservation(reservation: Reservation): Promise<boolean> {
     const guests = reservation.guests.map((obj) => Object.assign({}, obj));
-
     const update: Reservation = {
       id: reservation.id,
       willAttend: reservation.willAttend,

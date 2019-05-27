@@ -42,7 +42,7 @@ export class ReservationComponent implements OnInit {
 
     if (this.reservation.guests.length > 0) {
       this.reservation.guests.forEach(guest => {
-        this.addGuest(guest.name, guest.mealChoice);
+        this.addGuest(guest.name, guest.mealChoice, this.convertToBoolean(guest.brunch));
       });
     } else {
       this.addGuest();
@@ -72,8 +72,11 @@ export class ReservationComponent implements OnInit {
       this.reservation.guests = [];
 
       for (const guest of formValues['guests']) {
-        if (guest['guestName'] && guest['mealChoice'] !== undefined) {
-          this.reservation.guests.push(new Guest(guest['guestName'], guest['mealChoice']));
+        if (guest['guestName'] && guest['mealChoice'] && guest['brunch'] !== undefined) {
+          console.log(this.convertToBoolean(guest['brunch']));
+          this.reservation.guests.push(
+            new Guest(guest['guestName'], guest['mealChoice'], this.convertToBoolean(guest['brunch']))
+          );
         }
       }
       this.matDialog.open(LoadingDialogComponent);
@@ -99,17 +102,18 @@ export class ReservationComponent implements OnInit {
     }
   }
 
-  addGuest(guestName?: string, mealChoice?: MealChoiceEnum): void {
+  addGuest(guestName?: string, mealChoice?: MealChoiceEnum, brunch?: boolean): void {
     const control = <FormArray>this.reservationForm.controls['guests'];
-
     const newGroup: FormGroup = this.fb.group({
       guestName: this.fb.control([guestName]),
-      mealChoice: this.fb.control([mealChoice])
+      mealChoice: this.fb.control([mealChoice]),
+      brunch: this.fb.control([brunch])
     });
 
     newGroup.patchValue({
       guestName: guestName,
-      mealChoice: mealChoice
+      mealChoice: mealChoice,
+      brunch: brunch,
     });
 
     control.push(newGroup);
@@ -129,7 +133,12 @@ export class ReservationComponent implements OnInit {
       let control = guestGroup.get('guestName');
       control.setValidators([Validators.required]);
       control.updateValueAndValidity();
+
       control = guestGroup.get('mealChoice');
+      control.setValidators([Validators.required]);
+      control.updateValueAndValidity();
+
+      control = guestGroup.get('brunch');
       control.setValidators([Validators.required]);
       control.updateValueAndValidity();
     });
@@ -143,7 +152,12 @@ export class ReservationComponent implements OnInit {
       let control = guestGroup.get('guestName');
       control.clearValidators();
       control.updateValueAndValidity();
+
       control = guestGroup.get('mealChoice');
+      control.clearValidators();
+      control.updateValueAndValidity();
+
+      control = guestGroup.get('brunch');
       control.clearValidators();
       control.updateValueAndValidity();
     });
@@ -158,8 +172,11 @@ export class ReservationComponent implements OnInit {
     return MealChoiceUtils.MealChoiceDisplayName(MealChoiceEnum[choice]);
   }
 
+  test(guest: any): void {
+    console.log(guest);
+  }
+
   private convertToBoolean(value: any): boolean {
-     let test: number[] = [];
     return value === true || value === 'true';
   }
 

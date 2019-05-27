@@ -1,5 +1,6 @@
 export class Event {
   eventName: string;
+  subtitle: string
   eventNumber: number;
   dateTime: string;
   locationName: string;
