@@ -72,7 +72,7 @@ export class ReservationComponent implements OnInit {
       this.reservation.guests = [];
 
       for (const guest of formValues['guests']) {
-        if (guest['guestName'] && guest['mealChoice'] && guest['brunch'] !== undefined) {
+        if (guest['guestName'] && guest['mealChoice'] !== undefined && guest['brunch'] ) {
           console.log(this.convertToBoolean(guest['brunch']));
           this.reservation.guests.push(
             new Guest(guest['guestName'], guest['mealChoice'], this.convertToBoolean(guest['brunch']))
@@ -170,10 +170,6 @@ export class ReservationComponent implements OnInit {
 
   getDisplayName(choice: string): string {
     return MealChoiceUtils.MealChoiceDisplayName(MealChoiceEnum[choice]);
-  }
-
-  test(guest: any): void {
-    console.log(guest);
   }
 
   private convertToBoolean(value: any): boolean {

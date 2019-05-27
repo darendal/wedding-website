@@ -33,7 +33,7 @@ export class AdminReservationsComponent implements OnInit {
 
   private handleResult(result: any) {
     this.papa.parse(result, {
-      delimiter: ':',
+      delimiter: ',',
       complete: (parseResult) => this.submitParsedData(parseResult),
     });
   }
