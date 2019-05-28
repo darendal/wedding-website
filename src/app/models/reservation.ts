@@ -7,6 +7,7 @@ export class Reservation {
   guests: Guest[];
   maxGuests: number;
   modified: number;
+  email: string;
 
   constructor(id: string, name: string) {
     this.id = id;
@@ -14,6 +15,7 @@ export class Reservation {
     this.maxGuests = 2;
     this.willAttend = false;
     this.guests = [];
+    this.email = null;
   }
 
   static defaultReservation(name: string, maxGuests: number): Reservation {
@@ -23,7 +25,8 @@ export class Reservation {
       willAttend: false,
       guests: [],
       maxGuests: maxGuests,
-      modified: null
+      modified: null,
+      email: null
     };
   }
 }

@@ -36,6 +36,7 @@ export class ReservationComponent implements OnInit {
 
   ngOnInit() {
     this.reservationForm = this.fb.group({
+      email: this.fb.control([Validators.email]),
       willAttend: this.fb.control([Validators.required]),
       guests: this.fb.array([])
     });
@@ -57,6 +58,7 @@ export class ReservationComponent implements OnInit {
     });
 
     this.reservationForm.patchValue({
+      email: this.reservation.email,
       willAttend: this.convertToBoolean(this.reservation.willAttend)
     });
 
@@ -67,13 +69,13 @@ export class ReservationComponent implements OnInit {
       const formValues = this.reservationForm.value;
 
       this.reservation.willAttend = this.convertToBoolean(formValues['willAttend']);
+      this.reservation.email = formValues['email'];
 
       // Clear guests
       this.reservation.guests = [];
 
       for (const guest of formValues['guests']) {
         if (guest['guestName'] && guest['mealChoice'] !== undefined && guest['brunch'] ) {
-          console.log(this.convertToBoolean(guest['brunch']));
           this.reservation.guests.push(
             new Guest(guest['guestName'], guest['mealChoice'], this.convertToBoolean(guest['brunch']))
           );
@@ -90,6 +92,7 @@ export class ReservationComponent implements OnInit {
           } else {
             this.messageService.showMessage('RSVP received, we\'re sorry you can\'t make it!');
           }
+          this.sendEmail(this.reservation);
           this.reservation = null;
           this.reservationForm.reset();
           this.formSubmitted.emit(response);
@@ -174,6 +177,18 @@ export class ReservationComponent implements OnInit {
 
   private convertToBoolean(value: any): boolean {
     return value === true || value === 'true';
+  }
+
+  private sendEmail(reservation: Reservation): void {
+    if (typeof reservation.email !== 'undefined' && reservation.email) {
+      this.resService.sendEmail(reservation).then((response_email: boolean) => {
+        if (response_email) {
+          this.messageService.showMessage(`Email confirmation sent to ${reservation.email}`);
+        }
+      }).catch(() => {
+        this.messageService.showMessage('Error sending confirmation email. Please verify the address');
+      });
+    }
   }
 
 }

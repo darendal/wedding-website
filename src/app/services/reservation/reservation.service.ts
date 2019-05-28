@@ -5,6 +5,7 @@ import {catchError, map} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
 import {LoggingService} from '../logging/logging.service';
 import {Observable, of} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 
 @Injectable({
@@ -14,7 +15,9 @@ export class ReservationService {
 
   private readonly path = environment.reservation_path;
 
-  constructor(private readonly firebase: AngularFirestore, private log: LoggingService) {}
+  constructor(private readonly firebase: AngularFirestore,
+              private log: LoggingService,
+              private http: HttpClient) {}
 
   getReservationByName(name: string): Observable<Reservation> {
     return this.firebase.collection<Reservation>(this.path,
@@ -50,7 +53,8 @@ export class ReservationService {
       modified: Date.now(),
       guests: guests,
       maxGuests: reservation.maxGuests,
-      name: reservation.name
+      name: reservation.name,
+      email: reservation.email ? reservation.email : ''
     };
 
     const reservationDoc = this.firebase.doc<Reservation>(`${this.path}/${update.id}`);
@@ -73,6 +77,16 @@ export class ReservationService {
         this.log.error('Error creating reservation', e);
         return false;
       });
+  }
+
+  sendEmail(reservation: Reservation): Promise<boolean> {
+    if (reservation.email ) {
+      return this.http.post(environment.emailFunctionAddress, reservation).toPromise()
+        .then(() => true)
+        .catch(() => false);
+    } else {
+      return new Promise<boolean>(() => true);
+    }
   }
 
 }

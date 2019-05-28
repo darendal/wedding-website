@@ -6,12 +6,22 @@
           <mat-card-title>Reservation for {{ reservation.name }}</mat-card-title>
         </mat-card-header>
         <mat-card-content class="guest-card-content">
-          <mat-label>Will you be able to attend?</mat-label>
-          <mat-radio-group formControlName="willAttend" class="radio-group" required>
-            <br/>
-            <mat-radio-button [checked]="reservation.willAttend" class="radio-button" value={{true}}>Yes, I'll attend</mat-radio-button>
-            <mat-radio-button [checked]="!reservation.willAttend" class="radio-button" value={{false}}>Regretfully decline</mat-radio-button>
-          </mat-radio-group>
+          <div>
+            <mat-label>Will you be able to attend?</mat-label>
+            <mat-radio-group formControlName="willAttend" class="radio-group" required>
+              <br/>
+              <mat-radio-button [checked]="reservation.willAttend" class="radio-button" value={{true}}>Yes, I'll attend</mat-radio-button>
+              <mat-radio-button [checked]="!reservation.willAttend" class="radio-button" value={{false}}>Regretfully decline</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <mat-form-field  class="form-component">
+            <mat-label>Email Address</mat-label>
+            <input type="email" placeholder="yourEmail@example.com" matInput formControlName="email" email="true">
+            <mat-hint> [Optional] After submitting your RSVP, you'll receive an email confirmation</mat-hint>
+            <mat-error *ngIf="reservationForm.controls['email'].hasError('email')">
+              Please enter a valid email address
+            </mat-error>
+          </mat-form-field>
           <br/>
           <div formArrayName="guests" class="main-card-content" *ngIf="reservationForm.get('willAttend').value.toString() === 'true'">
             <mat-card *ngFor="let guest of reservationForm.controls['guests'].controls; let i = index;" formGroupName="{{i}}" class="guest-card">
