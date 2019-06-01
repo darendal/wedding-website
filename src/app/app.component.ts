@@ -10,7 +10,7 @@ import {Component, isDevMode} from '@angular/core';
 export class AppComponent {
   navLinks = [
       {path: 'home', label: 'Home', isActive: true},
-      // {path: 'rsvp', label: 'RSVP', isActive: false},
+      {path: 'rsvp', label: 'RSVP', isActive: false},
       {path: 'photos', label: 'Photos', isActive: false},
       {path: 'events', label: 'Events', isActive: false},
       {path: 'menu', label: 'Menu', isActive: false},
